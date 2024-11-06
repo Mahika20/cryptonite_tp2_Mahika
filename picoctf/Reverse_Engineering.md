@@ -1,5 +1,6 @@
 # Reverse_Engineering
 ## Gdb baby step1:
+
 This challenge required us to figure out what was in the eax register at the end of the main function.
 First I downloaded the file debugger0_a on my system and saved it in my home directory. Then on terminal, I ran the command `file debugger0_a` to check the file type of debugger which returned this: 
 ```
@@ -19,6 +20,12 @@ debugger0_a[0x113d] <+20>: pop    rbp
 debugger0_a[0x113e] <+21>: ret    
 ```
 From the output we can observe that the eax register value is 0x86342 which is in hexadecimal format. So, to convert it to decimal  I	ran the command `(lldb) print 0x86342` which gave `(int) 549698` as the output.
+
+New concepts:
+1. I learned how debuggers like gdb and lldb can be used to disassemble functions.
+2. gdb and lldb are similar in function but their commands and syntax differ.
+3. Registers: They are small, fast storage locations within a computer's CPU that hold data, addresses, or instructions.
+4. EAX register is a general purpose register
 
 References: [LLDB commands](https://www.kodeco.com/books/advanced-apple-debugging-reverse-engineering/v3.0/chapters/A-appendix-a-lldb-cheatsheet)
 Flag link: picoCTF{549698}
