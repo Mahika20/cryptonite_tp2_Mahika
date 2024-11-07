@@ -140,7 +140,8 @@ chall_1.S:71:20: error: unexpected token in '.section' directive
  .section .note.GNU-stack,"",@progbits
                    ^
 ```
-Then I finally came a cross Vim editor and used the `vim <filename>` command to open the file on terminal.
+Then I finally came across Vim editor and used the `vim <filename>` command to open the file on terminal.
+
 2. I initially spent a lot of time trying to make the file executable but instead had to focus more on ananlyzing the assembly code.
 
 
