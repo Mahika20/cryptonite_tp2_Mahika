@@ -21,8 +21,8 @@ debugger0_a[0x113e] <+21>: ret
 ```
 From the output we can observe that the eax register value is 0x86342 which is in hexadecimal format. So, to convert it to decimal  I	ran the command `(lldb) print 0x86342` which gave `(int) 549698` as the output.
 
-> New concepts:
-> 1. I learned how debuggers like gdb and lldb can be used to disassemble functions.
+-New concepts:
+1. I learned how debuggers like gdb and lldb can be used to disassemble functions.
 2. gdb and lldb are similar in function but their commands and syntax differ.
 3. Registers: They are small, fast storage locations within a computer's CPU that hold data, addresses, or instructions.
 4. EAX register is a general purpose register
@@ -107,15 +107,14 @@ main:
 On analyzing the rest of the code, we can see `cmp     w0, 0
         bne     .L4` which means that the program will go to .L4 label if the result of w0-0 is not zero. Our goal is to jump to the .LC0 label, hence, w0 should be 0.  So if we combine our earlier observations and this new observation, the user input should be 90 to store 0 in w0. Finally, by converting 90 to hex we get 0x5A. By removing 0x, making it lowercase and 32 bits the final result we get is 0000005a. The flag is picoCTF{0000005a}.
 
-> New concepts:
+-New concepts:
 1. MOV instruction is used for moving data from one storage space to another.  It can also move constant values to a destination register. Syntax: mov destination, source
 2. STR instruction stores a register value into memory.
 3. LSL (Logical Shift Left) is an instruction that moves the right-hand bits of a register to the left.
 4. LDR is Load instruction that loads a value from memory into the register.
 5. cmp instruction subtracts the two operands
 
-
-> Errors:
+-Errors:
 1. I was trying to debug chall_1.S using lldb directly but it gave the following error: 
 ```
 (lldb) target create "chall_1.S"
