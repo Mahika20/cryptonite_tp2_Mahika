@@ -3,7 +3,7 @@
 This challenge required us to figure out how the flag was moved. I first downloaded the given file ‘tftp.pcapng’. Then in order to check the file type and other related information, I ran the command `file tftp.pcapng` which gave the following output:
 `tftp.pcapng: pcapng capture file - version 1.0`
 The file was a pcapng capture file. I decided to use Wireshark.
-￼
+
 I then went to the statistics menu and clicked on the conversations option which allowed me to analyze network conversations, which are basically streams of data exchanged between two endpoints. 
 
 ￼
