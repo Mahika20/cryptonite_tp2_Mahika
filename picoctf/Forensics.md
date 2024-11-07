@@ -3,20 +3,25 @@
 This challenge required us to figure out how the flag was moved. I first downloaded the given file ‘tftp.pcapng’. Then in order to check the file type and other related information, I ran the command `file tftp.pcapng` which gave the following output:
 `tftp.pcapng: pcapng capture file - version 1.0`
 The file was a pcapng capture file. I decided to use Wireshark.
+<img width="1470" alt="Pasted Graphic" src="https://github.com/user-attachments/assets/da93ef06-d7ba-4c18-b1a2-512aac059e9e">
 
 I then went to the statistics menu and clicked on the conversations option which allowed me to analyze network conversations, which are basically streams of data exchanged between two endpoints. 
+<img width="1213" alt="Pasted Graphic 7" src="https://github.com/user-attachments/assets/fbbca69a-57d4-4080-bbcd-2461834c456e">
 
-￼
 The most number of bytes were flowing through the first result so I selected it and set it as the filter.
 After applying the filter, the following results were displayed. 
-￼
+<img width="1470" alt="Pasted Graphic 2" src="https://github.com/user-attachments/assets/c6444597-f98a-4924-b534-436f18e0fa01">
+
 The protocol here was TFTP and destination file was plan. So, I decided to check where this data was flowing to by finding the plan file. I selected the first result, clicked on files option followed by Extract object option to extract the file. This resulted in the following prompt:
-￼
+￼<img width="791" alt="10 10 10 11" src="https://github.com/user-attachments/assets/1ef2517c-a317-4904-86d1-783d2a237f8e">
+
 I saved all files on my system and viewed them one by one.
-￼
+<img width="806" alt="Pasted Graphic 4" src="https://github.com/user-attachments/assets/59a060b8-8c37-4d60-9408-e88cd2f8db4e">
+
 3 of them were random images but the instructions.txt and plan files caught my eye. They had some meaningless text which had to be deciphered.
-￼
-￼
+<img width="615" alt="Pasted Graphic 5" src="https://github.com/user-attachments/assets/c019a7e4-d16c-44ef-895e-b2b86e43db43">
+<img width="642" alt="Pasted Graphic 6" src="https://github.com/user-attachments/assets/a90620db-962e-4081-af8b-df7ccc844bce">
+
 The text seemed to be decoded by rot13 decipher. So I tried deciphering it online which gave the following text for plan file and instructions.txt file repectively: `IUSEDTHEPROGRAMANDHIDITWITH-DUEDILIGENCE.CHECKOUTTHEPHOTOS` 
 `TFTPDOESNTENCRYPTOURTRAFFICSOWEMUSTDISGUISEOURFLAGTRANSFER.FIGUREOUTAWAYTOHIDETHEFLAGANDIWILLCHECKBACKFORTHEPLAN` 
 By adding spaces it becomes: `I USED THE PROGRAM AND HID IT WITH-DUEDILIGENCE. CHECK OUT THE PHOTOS.` and
