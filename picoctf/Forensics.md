@@ -86,14 +86,14 @@ mahikakapil@Mahikas-MacBook-Air ~ % cat ./flag.txt
 picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
 ```
 
-New concepts:
+-New concepts:
 1.  Wireshark which is a network protocol analyzer that captures and displays network traffic in real time can be used for pcapng file type. 
 2. We need to analyze the data transfer and conversations, especially the number of bytes transferred, to narrow down our search.
 3. rot13 is a simple letter substitution cipher which replaces a letter with the 13th letter in the English alphabet.
 4. I worked with a .deb file for the first time. I looked up how to open it on terminal on macOS and came across `ar x <filename>` and `tar -xvf data.tar.xz` commands.
 
 
-Errors:
+-Errors:
 1. Initially, I did not know how to use Wireshark so I was not properly analyzing the network traffic but after referring to some videos, I figured out how to filter the search. 
 2. Since I was working on macOS, I tried downloading steghide using Homebrew but it gave errors. So I installed it from sourceforge. I also had to installed macports and set it up in order to use the steghide command.
 
