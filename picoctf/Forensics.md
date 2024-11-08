@@ -1,5 +1,5 @@
 # Forensics 
-## Trivial Flag Transfer Protocol 
+## Challenge 1: Trivial Flag Transfer Protocol 
 This challenge required us to figure out how the flag was moved. I first downloaded the given file ‘tftp.pcapng’. Then in order to check the file type and other related information, I ran the command `file tftp.pcapng` which gave the following output:
 `tftp.pcapng: pcapng capture file - version 1.0`
 The file was a pcapng capture file. I decided to use Wireshark.
@@ -102,3 +102,13 @@ References: [Forensics intro](https://trailofbits.github.io/ctf/forensics/)
 [Steghide](https://medium.com/the-kickstarter/steganography-on-kali-using-steghide-7dfd3293f3fa)
 
 Flag link: picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
+
+## Challenge 2: m00nwalk
+In this challenge, we were supposed to decode the file. The file had a .wav extension which meant that it was an audio file. Also there was a hint given 'How did pictures from the moon landing get sent back to Earth?'. I looked it up and found SSTV format which transmits image data using low frequency signals. This could mean that the message.wav file has an image in it. I searched for some SSTV decoders and came across qsstv. I tried downloading it using `brew install qsstv' but then qsstv was not available for MacOS. So I downloaded a software called Black Cat SSTV and uploaded the file there to get an image. 
+<img width="1023" alt="image" src="https://github.com/user-attachments/assets/5d56c875-9a88-477c-b9c6-443735bb0663">
+The second hint for this challenge was 'What is the CMU mascot?, that might help select a RX option'. So I looked it up and got Scottish Highland Terrier aka Scotty as the result. Pretty random but a hint is a hint. I set the SSTV code to Scottie 1 and tried playing around with the image adjustments to get a clue. 
+<img width="1023" alt="image" src="https://github.com/user-attachments/assets/c38894bc-ec11-4b3e-b347-c35c0c0105b6">
+The flag was visible in the image.
+
+References:[SSTV](https://www.scopeofwork.net/how-slow-scan-tv-shaped-the-moon/)
+Flag: picoctf{beep_boop_im_in_space}
