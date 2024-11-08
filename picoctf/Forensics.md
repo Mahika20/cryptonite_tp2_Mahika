@@ -110,5 +110,8 @@ The second hint for this challenge was 'What is the CMU mascot?, that might help
 <img width="1023" alt="image" src="https://github.com/user-attachments/assets/c38894bc-ec11-4b3e-b347-c35c0c0105b6">
 The flag was visible in the image.
 
+-New Concepts
+1. I found the concept of how SSTV (Slow Scan Television) uses frequency modulation to convert a picture into an image pretty interesting.
+
 References:[SSTV](https://www.scopeofwork.net/how-slow-scan-tv-shaped-the-moon/)
 Flag: picoctf{beep_boop_im_in_space}
