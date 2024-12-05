@@ -4,12 +4,10 @@
 This challenge required us to investigate a Youtube to MP3 converter site named “The Glitch’s All-in-one Converter” I started off by launching the Attack box and starting the virtual machine. I accessed the machine by typing 10.10.214.113 on the web browser. 
 
 <img width="1470" alt="Pasted Graphic 22" src="https://github.com/user-attachments/assets/675c4ff1-a763-49c7-9a25-9c2a7f69099d">
-￼
 
 On the website, I entered the YouTube video link provided in the description. I selected the MP3 format.
 <img width="1070" alt="Format Selection Protocol" src="https://github.com/user-attachments/assets/3e873ea7-a254-40d9-9c0a-c9b862ab0ce6">
 
-￼
 After this, I clicked on the download file option to download the MP3 file. A zip file was downloaded.
 ￼
 <img width="1470" alt="Pasted Graphic 24" src="https://github.com/user-attachments/assets/040e058d-936a-4f36-b7ea-85ae80fa06c6">
@@ -26,7 +24,9 @@ root@ip-10-10-129-168:~# file somg.mp3
 somg.mp3: MS Windows shortcut, Item id list present, Points to a file or directory, Has Relative path, Has Working directory, Has command line arguments, Archive, ctime=Sat Sep 15 07:14:14 2018, mtime=Sat Sep 15 07:14:14 2018, atime=Sat Sep 15 07:14:14 2018, length=448000, window=hide
 root@ip-10-10-129-168:~# 
 ```
+
 Then I used the exitfool tool to inspect somg.mp3 file.
+
 ```
 root@ip-10-10-129-168:~# exiftool somg.mp3
 ExifTool Version Number         : 11.88
@@ -60,6 +60,7 @@ Machine ID                      : win-base-2019
 root@ip-10-10-129-168:~# 
 ```
 I could see the powershell command being used on the above output. I opened the powershelgl script using the given url: https://raw.githubusercontent.com/MM-WarevilleTHM/IS/refs/heads/main/IS.ps1
+
 ```
 function Print-AsciiArt {
     Write-Host "  ____     _       ___  _____    ___    _   _ "
@@ -71,6 +72,7 @@ function Print-AsciiArt {
     Write-Host "         Created by the one and only M.M."
 }
 ```
+
 Here was a clue about the identity of the creator of the script, the initials M.M. I searched "Created by the one and only M.M." on GitHub and clicked on the issues column.
 
 <img width="1105" alt="Pasted Graphic 26" src="https://github.com/user-attachments/assets/39f30a7f-1884-4fb1-9e85-d952cc15a7a5">
