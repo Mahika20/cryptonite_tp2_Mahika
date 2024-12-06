@@ -7,6 +7,7 @@ For this challenge, we were provided with the cipher text and an encoder which w
 
 <img width="570" alt="fileinput import input" src="https://github.com/user-attachments/assets/82ce524f-0fa3-496e-91c6-51fab5f7a4dd">
 
+
 I tried analyzing the code. The string chars is put in a for loop and a line from the input is concatenated at every iteration. The string variables lookup1 and lookup2 hold a bunch of characters. Then there is another for loop iterating through the characters in chars. The variable cur holds the index of the current character, out string is concatenated with a character from lookup2 which is at an index (cur-prev)%40.  Then I decided to write a new python program to decipher the cipher text. I basically had to reverse what had been done in the above code.
 ```
 f=open('ciphertext (1)','r')
@@ -31,7 +32,7 @@ print(inp)
 f.close()
 ```
 
-The above code the following output:
+The above code gave the following output:
 
 ```
 #asciiorder
