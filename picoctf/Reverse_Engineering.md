@@ -30,7 +30,8 @@ From the output we can observe that the eax register value is 0x86342 which is i
 
 
 References: [LLDB commands](https://www.kodeco.com/books/advanced-apple-debugging-reverse-engineering/v3.0/chapters/A-appendix-a-lldb-cheatsheet)
-Flag link: picoCTF{549698}
+
+FLAG: picoCTF{549698}
 
 
 ## Challenge 2: ARMssembly 1
@@ -148,4 +149,21 @@ Then I finally came across Vim editor and used the `vim <filename>` command to o
 
 References: [ARM Assembly cheatsheet](https://cheatography.com/syshella/cheat-sheets/arm-assembly/)
 
-Flag: picoCTF{0000005a}
+FLAG: picoCTF{0000005a}
+
+## Challenge 3: Vault Door 3
+In this challenge, the following source code was provided.
+
+<img width="714" alt="Pasted Graphic 34" src="https://github.com/user-attachments/assets/2ba3f881-f615-468e-87c0-f1eb73f3f77b">
+
+<img width="714" alt="for (1=0;" src="https://github.com/user-attachments/assets/523fba7d-9ce1-493d-b50d-32ae2813208b">
+
+I looked at the checkPassword function and thought of writing a C program with this function and passing "jU5t_a_sna_3lpm12g94c_u_4_m7ra41" as an argument to it. "jU5t_a_sna_3lpm12g94c_u_4_m7ra41" looks like the flag but the words seem shuffled. 
+
+
+<img width="556" alt="Pasted Graphic 32" src="https://github.com/user-attachments/assets/fb7550ad-a625-4b00-99e1-f47b8d7baf49">
+
+The output had the right arrangement of the flag. 
+
+FLAG: picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_c79a21}
+
