@@ -340,7 +340,7 @@ B = math.cbrt(c)
 
 print(B)
 ```
-But the output was 2.8042946060170113e+29 which wasn’t what I was looking for. So I searched for a code to find cube root of large numbers to get a precise answer.
+But the output was 2.8042946060170113e+29 which wasn’t what I was looking for. So I looked up how to find the cube root of large numbers using python on the internet and wrote the following code.
 ```
 def ip(x,n):
     up = 1
