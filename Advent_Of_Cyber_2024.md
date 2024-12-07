@@ -103,3 +103,34 @@ The next question was “What is the number of commits on the GitHub repo where 
 2. I got a basic idea about OPSEC which stands for Operational Security
 
 ## Day 2
+This challenge required us to identify if an alert was a True Positive (TP) or a False Positive (FP). I started off by starting the machine. Then I clicked on the https://10-10-244-229.p.thmlabs.com link to connect to the Elastic SIEM. I logged in to the site using the provided credentials. Then I went to the Discover tab present in the menu in the top left corner to see the events. I set the date to Dec 1st, 2024 and the time frame between 0900 and 0930 as the alert was triggered around this time.
+<img width="644" alt="Options" src="https://github.com/user-attachments/assets/f91095f1-e87f-42db-a7e0-6c4a95a2676e">
+
+There were 21 events during this timeframe.
+<img width="1463" alt="Pasted Graphic 52" src="https://github.com/user-attachments/assets/9c06d5b9-a9b4-4021-a645-09aa56e8fff4">
+
+I added some columns and then analyzed the events.
+<img width="1463" alt="Pasted Graphic 53" src="https://github.com/user-attachments/assets/ed7f2b9b-2428-4e9b-be8c-a885b5e4502b">
+
+The same powershell command was being executed on multiple machines. I expanded the time frame from 29th of November to the 1st of December. Then on adding some filters it was observed that the user could have done a brute force attack on 1st of December as there was an authentication success observed.
+<img width="1463" alt="Pasted Graphic 54" src="https://github.com/user-attachments/assets/c2b7729d-addb-47e1-903b-c7c06333b986">
+
+I also checked the number of failed logons by setting failure as a filter. It was 6791.
+<img width="1463" alt="Pasted Graphic 57" src="https://github.com/user-attachments/assets/71342480-b474-4122-988c-98814a34a643">
+
+Then I opened CodeChef to decode the PowerShell commands as they are in Base64 format. 
+<img width="1463" alt="Pasted Graphic 56" src="https://github.com/user-attachments/assets/acd842ad-8ebe-4fdf-b6d3-dc4670a52081">
+
+Then I answered the questions for this task.
+<img width="1341" alt="Pasted Graphic 59" src="https://github.com/user-attachments/assets/dca7b467-dedc-4286-acf2-86d641130b98">
+
+
+-New concepts:
+1. I discovered what a SIEM is. It basically aggregates different events and information. It triggers an alert if it detects malicious activity. This alert could either be a TP or FP.
+
+
+## Day 3
+In this task I followed the demonstration on how to use ELK which are three open-source tools that are commonly used together to collect, store, analyse, and visualise data. 
+
+
+
