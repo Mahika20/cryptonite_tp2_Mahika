@@ -19,6 +19,7 @@ I saved all files on my system and viewed them one by one.
 <img width="806" alt="Pasted Graphic 4" src="https://github.com/user-attachments/assets/59a060b8-8c37-4d60-9408-e88cd2f8db4e">
 
 3 of them were random images but the instructions.txt and plan files caught my eye. They had some meaningless text which had to be deciphered.
+
 <img width="615" alt="Pasted Graphic 5" src="https://github.com/user-attachments/assets/c019a7e4-d16c-44ef-895e-b2b86e43db43">
 <img width="642" alt="Pasted Graphic 6" src="https://github.com/user-attachments/assets/a90620db-962e-4081-af8b-df7ccc844bce">
 
