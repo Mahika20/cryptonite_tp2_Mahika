@@ -101,3 +101,5 @@ The next question was “What is the number of commits on the GitHub repo where 
 -New concepts
 1. I came across Powershell which is a command-line shell and scripting language used to automate tasks and manage systems in Windows environments. The powershell script in here was designed to collect highly sensitive information and send it to an attacker's remote server.
 2. I got a basic idea about OPSEC which stands for Operational Security
+
+## Day 2
