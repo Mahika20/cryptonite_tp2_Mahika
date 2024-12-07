@@ -165,5 +165,9 @@ I looked at the checkPassword function and thought of writing a C program with t
 
 The output had the right arrangement of the flag. 
 
+-New concepts
+1. I learned how to analyze a code and work with it to get the flag.
+
+
 FLAG: picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_c79a21}
 
