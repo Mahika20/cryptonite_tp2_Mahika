@@ -115,3 +115,97 @@ The flag was visible in the image.
 
 References:[SSTV](https://www.scopeofwork.net/how-slow-scan-tv-shaped-the-moon/)
 Flag: picoctf{beep_boop_im_in_space}
+
+## Challenge 3: tunn3l v1s10n
+The challenge description provided a file. I opened it and it had a bunch of unintelligible characters. 
+```
+mahikakapil@Mahikas-MacBook-Air cryptonitetp2_Mahika % file tunn3l_v1s10n
+tunn3l_v1s10n: data
+```
+Since I had no clue about what to do with this file, I just tried searching for lines starting with p as it is the first letter of the flag format picoCTF{}.  
+```
+mahikakapil@Mahikas-MacBook-Air cryptonitetp2_Mahika % cat tunn3l_v1s10n|grep p
+Binary file (standard input) matches
+```
+Okay so the file is a binary file. I tried reading the file but it gave no output. 
+```
+f = open('tunn3l_v1s10n', "rb")
+s = f.read()
+print(s)
+f.close()
+```
+This made me think that it could be an image which is converted to a binary file. So, I decided to use the exitfool tool.
+```
+mahikakapil@Mahikas-MacBook-Air cryptonitetp2_Mahika % exiftool tunn3l_v1s10n
+ExifTool Version Number         : 13.00
+File Name                       : tunn3l_v1s10n
+Directory                       : .
+File Size                       : 2.9 MB
+File Modification Date/Time     : 2024:11:09 01:06:36+05:30
+File Access Date/Time           : 2024:11:09 01:06:36+05:30
+File Inode Change Date/Time     : 2024:11:09 01:08:17+05:30
+File Permissions                : -rw-r--r--
+File Type                       : BMP
+File Type Extension             : bmp
+MIME Type                       : image/bmp
+BMP Version                     : Unknown (53434)
+Image Width                     : 1134
+Image Height                    : 306
+Planes                          : 1
+Bit Depth                       : 24
+Compression                     : None
+Image Length                    : 2893400
+Pixels Per Meter X              : 5669
+Pixels Per Meter Y              : 5669
+Num Colors                      : Use BitDepth
+Num Important Colors            : All
+Red Mask                        : 0x27171a23
+Green Mask                      : 0x20291b1e
+Blue Mask                       : 0x1e212a1d
+Alpha Mask                      : 0x311a1d26
+Color Space                     : Unknown (,5%()
+Rendering Intent                : Unknown (826103054)
+Image Size                      : 1134x306
+Megapixels                      : 0.347
+```
+The file was a bmp file. I tried saving it with a .bmp extension and opening it but it wouldn’t open. I then looked for information on bitmap files on the internet. I then got the bmp headers using terminal.
+```
+mahikakapil@Mahikas-MacBook-Air cryptonitetp2_Mahika % xxd -l 64 tunn3l_v1s10n.bmp
+00000000: 424d 8e26 2c00 0000 0000 bad0 0000 bad0  BM.&,...........
+00000010: 0000 6e04 0000 3201 0000 0100 1800 0000  ..n...2.........
+00000020: 0000 5826 2c00 2516 0000 2516 0000 0000  ..X&,.%...%.....
+00000030: 0000 0000 0000 231a 1727 1e1b 2920 1d2a  ......#..'..) .*
+```
+
+I then tried using an online hex editor. I opened the file using https://hexed.it/ and the headers were displayed.
+<img width="1065" alt="Pasted Graphic 39" src="https://github.com/user-attachments/assets/f457df0a-4793-475b-8876-b07cf02d0193">
+
+I had no idea what to do with this data so I searched the internet regarding bmp headers. I found the specifications for the size of a bmp file and changed BA to 28 and D0 to 00. Then I saved it as a .bmp file and opened it.
+<img width="703" alt="Pasted Graphic 40" src="https://github.com/user-attachments/assets/b0c2b348-c811-4410-a150-52ae8532a986">
+
+This image had a false flag. So, In the info header I made some more changes to the width, height, planes and bits per pixel. I set 6E to 10, 04 to 00, 32 to 10, 01 to 00 and 18 to 10. But this gave a very zoomed-in image.
+<img width="703" alt="Pasted Graphic 41" src="https://github.com/user-attachments/assets/58a1fac6-1121-4589-942c-81d1e82af65e">
+
+So I reverted the specifications to their original values and just tried changing the height specifications. When I set
+height to 10 04 00 00 a bigger image with the flag was produced.
+<img width="1039" alt="Pasted Graphic 42" src="https://github.com/user-attachments/assets/ed8aa5c7-cdf3-4e24-bcb6-fc82a71fb69f">
+<img width="700" alt="Pasted Graphic 43" src="https://github.com/user-attachments/assets/ffc93921-749b-410d-9332-93ca9806f52d">
+
+The flag was visible in the picture.
+
+
+-New Concepts
+1. I came across the xxd command which coverts binary data into hexadecimal notations.
+2. I used exitfool to analyze the bmp file details.
+3. I learned about the headers of a BMP file and how to modify them.
+
+-Errors and Mistakes
+1. I was stuck for some time trying to understand what to do with the given binary data.
+2. I entered the wrong specifications for the info header and couldn’t view the image properly.
+
+-References
+1. (BMP file format)[https://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2003_w/misc/bmp_file_format/bmp_file_format.htm]
+2. (Specifications)[https://www.donwalizerjr.com/understanding-bmp/]
+
+FLAG: picoCTF{qu1t3_a_v13w_2020}
+
