@@ -311,3 +311,76 @@ This was the flag.
 1. I initially passed trudeau as the key argument while calling the dynamic_xor_encrypt function and wasn’t getting the flag. I had to use something from the flag format like picoCTF{ .
 
 FLAG:  picoCTF{custom_d2cr0pt6d_49fbee5b}
+
+## Challenge 3: miniRSA
+In this challenge, a file containing cyphertext was provided in the description. We were supposed to decrypt this text. The description also mentioned that something seems a bit small. The exponent here is 3 which is a small value.
+
+<img width="646" alt="Pasted Graphic 45" src="https://github.com/user-attachments/assets/8ecbc363-e69e-4f84-a60a-1a2b89c775b0">
+
+I first looked at the hints. The first hint was a link to a site containing info about RSA. Since c=m**e%n and e is small so I tried getting the cube root of ciphertext to find the original text m. I first ran the following python code.
+```
+c=22053164139311340310746037469282477990301552212525198726496492128676147518484367638012743
+6046340617127783805682143711588361916970296350460601756578353720320770775
+7768473109845162808575425972525116337319108047893250549462147185741761825125 
+e=3
+N=29331922499794985782735976045591164936683059380558950386560160105740343201513369
+93900630753116592270894961916269862367534903043085954782570899470832180370530945943
+80993404277705800644009114318566569019827899482853099561118486869061526644733509404
+86507451771223435835260168971210087470894448460745593956840586530527915802541450092
+94657469480958488089660131751979444286297747112931978131316184205650171504055596401
+18995890028637308686795271844207890105514750678629077390549661831206214072463985180
+98981106431219207697870293412176440482900183550467375190239898455201170831410460483
+829448603477361305838743852756938687673
+
+import math
+
+
+B = math.cbrt(c)
+    
+
+print(B)
+```
+But the output was 2.8042946060170113e+29 which wasn’t what I was looking for. So I searched for a code to find cube root of large numbers to get a precise answer.
+```
+def ip(x,n):
+    up = 1
+    while up ** n < x:
+        up *= 2
+    low = up//2
+    while low < up:
+        mid = (low + up) // 2
+        if low < mid and mid**n < x:
+            low = mid
+        elif up > mid and mid**n > x:
+            up = mid
+        else:
+            return mid
+    return mid + 1
+c=int("""22053164139311340310746037469282477990301552212525198726496492128676147518484367638012743
+6046340617127783805682143711588361916970296350460601756578353720320770775
+7768473109845162808575425972525116337319108047893250549462147185741761825125""".replace("\n", ""))
+n=3
+result=ip(c,n)
+print( result)
+```
+The output was `13016382529449106065894479374027604750406953699090365388202874238148389207291005`. I tried converting it into ASCII but the output was not right. 
+<img width="832" alt="Decimal to ASCII Converter" src="https://github.com/user-attachments/assets/75e1f4cd-0204-475b-b524-b0f69fdc3f63">
+
+So then I tried converting it to hexadecimal and then to ASCII and got the flag.
+<img width="682" alt="Home › Conversion › Number conversion › Decimal to hexadecimal" src="https://github.com/user-attachments/assets/ae9f5873-4bdc-4384-8bd6-18befd252d7b">
+<img width="711" alt="Hex to ASCII Text String Converter" src="https://github.com/user-attachments/assets/761f98c3-ec84-4179-8d11-186b98e382b2">
+
+
+-New concepts
+1. I learned how RSA encryption works.
+2. When e is small, the cipher text becomes c=m^e.
+
+-Errors and mistakes
+1. I could not calculate the cube root precisely initially.
+
+-References
+1. (RSA logic part1)[https://www.youtube.com/watch?v=4zahvcJ9glg]
+2. (RSA logic part2)[https://www.youtube.com/watch?v=oOcTVTpUsPQ]
+3. (Cuberoot)[https://stackoverflow.com/questions/55436001/cube-root-of-a-very-large-number-using-only-math-library]
+
+FLAG: picoCTF{n33d_a_lArg3r_e_606ce004}
