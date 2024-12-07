@@ -132,5 +132,9 @@ Then I answered the questions for this task.
 ## Day 3
 In this task I followed the demonstration on how to use ELK which are three open-source tools that are commonly used together to collect, store, analyse, and visualise data. 
 
-
+## Day 5
+In this task we had to
+I opened burpsuite and entered the provided URL on the browser.
+<img width="1463" alt="image" src="https://github.com/user-attachments/assets/b4f6cdb4-5041-48fe-b4f3-86a2fb3aeabb">
+I enabled Allow Burp's browser to run without a sandbox option.
 
