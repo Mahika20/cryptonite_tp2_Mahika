@@ -129,12 +129,30 @@ Then I answered the questions for this task.
 1. I discovered what a SIEM is. It basically aggregates different events and information. It triggers an alert if it detects malicious activity. This alert could either be a TP or FP.
 
 
-## Day 3 (incomplete)
-In this task I followed the demonstration on how to use ELK which are three open-source tools that are commonly used together to collect, store, analyse, and visualise data. 
 
-## Day 5 (incomplete)
-In this task we had to
-I opened burpsuite and entered the provided URL on the browser.
-<img width="1463" alt="image" src="https://github.com/user-attachments/assets/b4f6cdb4-5041-48fe-b4f3-86a2fb3aeabb">
-I enabled Allow Burp's browser to run without a sandbox option.
+## Day 6
+I started off by connecting to the virtual machine.
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/eba5e61c-c76a-46ab-98d1-4dc0c39bc37a">
 
+Then I typed the encoded dtring from the code on CodeChef. The output was: `Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion" -Name ProgramFilesDir`
+
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/ebba1d1c-dfcc-40cc-89a1-af610c1e63c2">
+
+The flag for question 1 was given here: THM{GlitchWasHere}.
+On clicking on the MerryChristmasObf.exe file, there was no pop up. Then I entered the command `floss.exe C:\Tools\Malware\MerryChristmas.exe |Out-file C:\tools\malstrings.txt` in powershell.
+
+<img width="854" alt="image" src="https://github.com/user-attachments/assets/526fb158-5ce3-4240-8cf6-a1a3b74ecf17">
+
+I then opened the Malware.txt file and used the CTRL+F combination to search the flag by using THM.
+
+<img width="979" alt="image" src="https://github.com/user-attachments/assets/040f0c62-37f6-423a-a638-7cf351d95ab0">
+
+The flag given was THM{HiddenClue}.
+
+<img width="1367" alt="image" src="https://github.com/user-attachments/assets/5ed2b265-93ec-496c-a786-42cc0c59f4b2">
+
+### -New Concepts
+1. A sandbox is an isolated environment where (malicious) code is executed without affecting anything outside the system.
+2. YARA is a tool used to identify and classify malware based on patterns in its code.
+3. Floss is a tool that can extract obfuscated strings from malware binaries.
+   
