@@ -129,10 +129,10 @@ Then I answered the questions for this task.
 1. I discovered what a SIEM is. It basically aggregates different events and information. It triggers an alert if it detects malicious activity. This alert could either be a TP or FP.
 
 
-## Day 3
+## Day 3 (incomplete)
 In this task I followed the demonstration on how to use ELK which are three open-source tools that are commonly used together to collect, store, analyse, and visualise data. 
 
-## Day 5
+## Day 5 (incomplete)
 In this task we had to
 I opened burpsuite and entered the provided URL on the browser.
 <img width="1463" alt="image" src="https://github.com/user-attachments/assets/b4f6cdb4-5041-48fe-b4f3-86a2fb3aeabb">
