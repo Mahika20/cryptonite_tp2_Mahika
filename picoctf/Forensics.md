@@ -87,22 +87,22 @@ mahikakapil@Mahikas-MacBook-Air ~ % cat ./flag.txt
 picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
 ```
 
--New concepts:
+### -New concepts:
 1.  Wireshark which is a network protocol analyzer that captures and displays network traffic in real time can be used for pcapng file type. 
 2. We need to analyze the data transfer and conversations, especially the number of bytes transferred, to narrow down our search.
 3. rot13 is a simple letter substitution cipher which replaces a letter with the 13th letter in the English alphabet.
 4. I worked with a .deb file for the first time. I looked up how to open it on terminal on macOS and came across `ar x <filename>` and `tar -xvf data.tar.xz` commands.
 
 
--Errors:
+### -Errors:
 1. Initially, I did not know how to use Wireshark so I was not properly analyzing the network traffic but after referring to some videos, I figured out how to filter the search. 
 2. Since I was working on macOS, I tried downloading steghide using Homebrew but it gave errors. So I installed it from sourceforge. I also had to installed macports and set it up in order to use the steghide command.
 
-References: [Forensics intro](https://trailofbits.github.io/ctf/forensics/)
+### -References: [Forensics intro](https://trailofbits.github.io/ctf/forensics/)
 [Wireshark intro](https://www.youtube.com/watch?v=ZNS115MPsO0 )
 [Steghide](https://medium.com/the-kickstarter/steganography-on-kali-using-steghide-7dfd3293f3fa)
 
-Flag link: picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
+### FLAG: picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
 
 ## Challenge 2: m00nwalk
 In this challenge, we were supposed to decode the file. The file had a .wav extension which meant that it was an audio file. Also there was a hint given 'How did pictures from the moon landing get sent back to Earth?'. I looked it up and found SSTV format which transmits image data using low frequency signals. This could mean that the message.wav file has an image in it. I searched for some SSTV decoders and came across qsstv. I tried downloading it using `brew install qsstv' but then qsstv was not available for MacOS. So I downloaded a software called Black Cat SSTV and uploaded the file there to get an image. 
@@ -111,11 +111,11 @@ The second hint for this challenge was 'What is the CMU mascot?, that might help
 <img width="1023" alt="image" src="https://github.com/user-attachments/assets/c38894bc-ec11-4b3e-b347-c35c0c0105b6">
 The flag was visible in the image.
 
--New Concepts
+### -New Concepts
 1. I found the concept of how SSTV (Slow Scan Television) uses frequency modulation to convert a picture into an image pretty interesting.
 
-References:[SSTV](https://www.scopeofwork.net/how-slow-scan-tv-shaped-the-moon/)
-Flag: picoctf{beep_boop_im_in_space}
+### -References:[SSTV](https://www.scopeofwork.net/how-slow-scan-tv-shaped-the-moon/)
+### FLAG: picoctf{beep_boop_im_in_space}
 
 ## Challenge 3: tunn3l v1s10n
 The challenge description provided a file. I opened it and it had a bunch of unintelligible characters. 
@@ -195,18 +195,18 @@ height to 10 04 00 00 a bigger image with the flag was produced.
 The flag was visible in the picture.
 
 
--New Concepts
+### -New Concepts
 1. I came across the xxd command which coverts binary data into hexadecimal notations.
 2. I used exitfool to analyze the bmp file details.
 3. I learned about the headers of a BMP file and how to modify them.
 
--Errors and Mistakes
+### -Errors and Mistakes
 1. I was stuck for some time trying to understand what to do with the given binary data.
 2. I entered the wrong specifications for the info header and couldn’t view the image properly.
 
--References
-1. (BMP file format)[https://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2003_w/misc/bmp_file_format/bmp_file_format.htm]
-2. (Specifications)[https://www.donwalizerjr.com/understanding-bmp/]
+### -References
+1. [BMP file format](https://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2003_w/misc/bmp_file_format/bmp_file_format.htm)
+2. [Specifications](https://www.donwalizerjr.com/understanding-bmp/)
 
-FLAG: picoCTF{qu1t3_a_v13w_2020}
+### FLAG: picoCTF{qu1t3_a_v13w_2020}
 
