@@ -117,10 +117,10 @@ s
 ```
 Then I enclosed the above text ‘adlibs’ in the picoCTF wrapper and it was the correct flag.
 
--New concepts
+### -New concepts
 1. I learnt how to decipher some text by analyzing and modifying the encryption scheme which in this case was a python script.
 
--Errors and Mistakes
+### -Errors and Mistakes
 1. I first passed the ciphertext file to the outpt.py program.
 ```
 #asciiorder
@@ -151,11 +151,11 @@ t
 ```
 Unfortunately, this wasn’t the flag. Then I noticed #selfinput written in the code. So I saved the original text as org.py file and passed it to the outpt.py program.
 
-References:
+### -References:
 1. [fileinput Module](https://docs.python.org/3/library/fileinput.html#fileinput.input)
 2. [2to3](https://docs.python.org/3.10/library/2to3.html#:~:text=2to3%20is%20a%20Python%20program,your%20own%20fixers%20for%202to3.)
 
-FLAG: picoCTF{adlibs}
+### FLAG: picoCTF{adlibs}
 
 ## Challenge 2: Custom Encryption
 The challenge description provided an encrypted file and a code file named custom_encryption.py. 
@@ -304,13 +304,13 @@ og text is:  picoCTF{custom_d2cr0pt6d_49fbee5b}
 ```
 This was the flag.
 
--New Concepts
+### -New Concepts
 1. I learned about XOR cipher.
 
--Errors and Mistakes
+### -Errors and Mistakes
 1. I initially passed trudeau as the key argument while calling the dynamic_xor_encrypt function and wasn’t getting the flag. I had to use something from the flag format like picoCTF{ .
 
-FLAG:  picoCTF{custom_d2cr0pt6d_49fbee5b}
+### FLAG:  picoCTF{custom_d2cr0pt6d_49fbee5b}
 
 ## Challenge 3: miniRSA
 In this challenge, a file containing cyphertext was provided in the description. We were supposed to decrypt this text. The description also mentioned that something seems a bit small. The exponent here is 3 which is a small value.
@@ -371,16 +371,16 @@ So then I tried converting it to hexadecimal and then to ASCII and got the flag.
 <img width="711" alt="Hex to ASCII Text String Converter" src="https://github.com/user-attachments/assets/761f98c3-ec84-4179-8d11-186b98e382b2">
 
 
--New concepts
+### -New concepts
 1. I learned how RSA encryption works.
 2. When e is small, the cipher text becomes c=m^e.
 
--Errors and mistakes
+### -Errors and mistakes
 1. I could not calculate the cube root precisely initially.
 
--References
-1. (RSA logic part1)[https://www.youtube.com/watch?v=4zahvcJ9glg]
-2. (RSA logic part2)[https://www.youtube.com/watch?v=oOcTVTpUsPQ]
-3. (Cuberoot)[https://stackoverflow.com/questions/55436001/cube-root-of-a-very-large-number-using-only-math-library]
+### -References
+1. [RSA logic part1](https://www.youtube.com/watch?v=4zahvcJ9glg)
+2. [RSA logic part2](https://www.youtube.com/watch?v=oOcTVTpUsPQ)
+3. [Cuberoot](https://stackoverflow.com/questions/55436001/cube-root-of-a-very-large-number-using-only-math-library)
 
-FLAG: picoCTF{n33d_a_lArg3r_e_606ce004}
+### FLAG: picoCTF{n33d_a_lArg3r_e_606ce004}
