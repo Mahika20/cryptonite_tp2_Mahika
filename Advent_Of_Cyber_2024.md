@@ -128,6 +128,57 @@ Then I answered the questions for this task.
 -New concepts:
 1. I discovered what a SIEM is. It basically aggregates different events and information. It triggers an alert if it detects malicious activity. This alert could either be a TP or FP.
 
+## Day 3 (incomplete)
+In this task I followed the demonstration on how to use ELK which are three open-source tools that are commonly used together to collect, store, analyse, and visualise data. 
+
+
+## Day 4 
+I started off by connecting to the virtual machine and opening PowerShell. In PowerShell I entered the command Get-Help Invoke-Atomictest followed by Invoke-AtomicTest T1566.001 -ShowDetails. This command displays the details of all tests included in the T1566.001 Atomic. I executed a few more commands to see how emulation works. 
+Then I opened the Event Viewer and navigated to Applications and Services => Microsoft => Windows => Sysmon => Operational then cleared the log.
+
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/7eda5467-c8e8-47c4-86aa-ceca75fbe796">
+
+After rexecuting the command `Invoke-AtomicTest T1566.001 -TestNumbers 1` I went back to the Event Viewer and refreshed.
+Then to find the first flag, I navigated to the directory C:\Users\Administrator\AppData\Local\Temp\ and catted the file PhishingAttachment.txt
+```
+PS C:\Users\Administrator> cd \Users\Administrator\AppData\Local\Temp\
+PS C:\Users\Administrator\AppData\Local\Temp> cat PhishingAttachment.txt
+THM{GlitchTestingForSpearphishing}
+```
+
+I searched for MITRE ATT&CK technique ID for Command and Scripting Interpreter on the internet. The ATT&CK technique ID was T1059. The  ATT&CK subtechnique ID focusing on the Windows Command Shell was T1059.003. I  executed `PS C:\Users\Administrator> Invoke-AtomicTest T1059.003  -ShowDetails`
+
+```
+[********BEGIN TEST*******]
+Technique: Command and Scripting Interpreter: Windows Command Shell T1059.003
+Atomic Test Name: Simulate BlackByte Ransomware Print Bombing
+Atomic Test Number: 4
+Atomic Test GUID: 6b2903ac-8f36-450d-9ad5-b220e8a2dcb9
+Description: This test attempts to open a file a specified number of times in Wordpad, then prints the contents.  It is
+designed to mimic BlackByte ransomware's print bombing technique, where tree.dll, which contains the ransom note, is ope
+ned in Wordpad 75 times and then printed.  See https://redcanary.com/blog/blackbyte-ransomware/.
+
+Attack Commands:
+Executor: powershell
+ElevationRequired: False
+Command:
+cmd /c "for /l %x in (1,1,#{max_to_print}) do start wordpad.exe /p #{file_to_print}" | Out-null
+Command (with inputs):
+cmd /c "for /l %x in (1,1,1) do start wordpad.exe /p C:\Tools\AtomicRedTeam\atomics\T1059.003\src\Wareville_Ransomware.t
+xt" | Out-null
+```
+
+I scrolled down the output and found the answer to the 4th question; the name of the Atomic Test to be stimulated was given in the output: Create and Execute Batch Script. The answer to the next question was the name of the file used in the test: Wareville_Ransomware.txt. Then, I looked for a flag in this test. I couldn't find any so I looked at the hint which suggested saving the PDF and reading it's content. I located the Wareville_Ransomware.txt file and opened it to view its contents. 
+
+<img width="703" alt="image" src="https://github.com/user-attachments/assets/6a8950e3-7cf6-47e6-b218-30896568b948">
+
+The flag was THM{R2xpdGNoIGlzIG5vdCB0aGUgZW5lbXk=}
+
+<img width="1319" alt="image" src="https://github.com/user-attachments/assets/db5dd682-4443-4999-a51d-4863124a2884">
+
+## New concepts
+1. MITRE ATT&CK is a opular framework for understanding the different techniques and tactics that threat actors perform through the kill chain.
+2. The Atomic Red Team library is a collection of red team test cases that are mapped to the MITRE ATT&CK framework.
 
 
 ## Day 6
@@ -155,4 +206,106 @@ The flag given was THM{HiddenClue}.
 1. A sandbox is an isolated environment where (malicious) code is executed without affecting anything outside the system.
 2. YARA is a tool used to identify and classify malware based on patterns in its code.
 3. Floss is a tool that can extract obfuscated strings from malware binaries.
-   
+
+## Day 7
+First I started the machine and opened the terminal. Then I began with investigating the CloudTrail logs by executing the commands below.
+
+```
+ubuntu@tryhackme:~$ cd wareville_logs
+ubuntu@tryhackme:~/wareville_logs$ ls
+cloudtrail_log.json  rds.log
+```
+The commands that followed, filtered and narrowed down the output. To see all the events related to the anomalous user the following command was executed.
+
+```
+ubuntu@tryhackme:~/wareville_logs$ jq -r '["Event_Time", "Event_Name", "User_Name", "Bucket_Name", "Key", "Source_IP"],(.Records[] | select(.eventSource == "s3.amazonaws.com" and .requestParameters.bucketName=="wareville-care4wares") | [.eventTime, .eventName, .userIdentity.userName // "N/A",.requestParameters.bucketName // "N/A", .requestParameters.key // "N/A", .sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t
+Event_Time            Event_Name        User_Name  Bucket_Name           Key                                         Source_IP
+2024-11-28T15:22:23Z  ListObjects       glitch     wareville-care4wares  N/A                                         53.94.201.69
+2024-11-28T15:22:25Z  ListObjects       glitch     wareville-care4wares  N/A                                         53.94.201.69
+2024-11-28T15:22:39Z  PutObject         glitch     wareville-care4wares  bank-details/wareville-bank-account-qr.png  53.94.201.69
+2024-11-28T15:22:39Z  PreflightRequest  N/A        wareville-care4wares  bank-details/wareville-bank-account-qr.png  53.94.201.69
+2024-11-28T15:22:44Z  ListObjects       glitch     wareville-care4wares  N/A                                         53.94.201.69
+ubuntu@tryhackme:~/wareville_logs$ 
+```
+Here we find the answer to the 1st and 2nd questions. The activity apart from ListObjects is PutObject. The source IP related to the S3 bucket activities of the user glitch is 53.94.201.69.
+Then I used the following command.
+```
+ubuntu@tryhackme:~/wareville_logs$ jq -r '["Event_Time", "Event_Source", "Event_Name", "User_Name", "Source_IP"],(.Records[] | select(.userIdentity.userName == "glitch") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A", .sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+```
+The output had the answer to the third and fourth questions. The AWS service that generates the ConsoleLogin event is signin.amazonaws.com and the anomalous user triggered the ConsoleLogin event on 2024-11-28T15:21:54Z.
+```
+glitch     53.94.201.69
+2024-11-28T15:21:54Z  signin.amazonaws.com                 ConsoleLogin
+```
+Then to look for who created this anomalous user account I used the following command
+```
+ubuntu@tryhackme:~/wareville_logs$ jq -r '["Event_Time", "Event_Source", "Event_Name", "User_Name", "Source_IP"], (.Records[] | select(.eventSource == "iam.amazonaws.com") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A", .sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+```
+followed by 
+```
+ubuntu@tryhackme:~/wareville_logs$ jq '.Records[] |select(.eventSource=="iam.amazonaws.com" and .eventName== "CreateUser")' cloudtrail_log.json
+```
+The following output snippet shows the username created by mcskidy user which is glitch.
+```
+  "eventTime": "2024-11-28T15:21:35Z",
+  "eventSource": "iam.amazonaws.com",
+  "eventName": "CreateUser",
+  "awsRegion": "ap-southeast-1",
+  "sourceIPAddress": "53.94.201.69",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+  "requestParameters": {
+    "userName": "glitch"
+  },
+```
+Then to view the permissions the anomalous user has I used the following command.
+```
+ubuntu@tryhackme:~/wareville_logs$ jq '.Records[] | select(.eventSource=="iam.amazonaws.com" and .eventName== "AttachUserPolicy")' cloudtrail_log.json
+```
+From a snippet of the output we can see that the AdministratorAccess was provided to the new user.
+```
+ "eventTime": "2024-11-28T15:21:36Z",
+  "eventSource": "iam.amazonaws.com",
+  "eventName": "AttachUserPolicy",
+  "awsRegion": "ap-southeast-1",
+  "sourceIPAddress": "53.94.201.69",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+  "requestParameters": {
+    "userName": "glitch",
+    "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+  },
+```
+To look at the IP address and operating system related to all these anomalous events I used the following command.
+```
+ubuntu@tryhackme:~/wareville_logs$ jq -r '["Event_Time", "Event_Source", "Event_Name", "User_Name", "Source_IP"], (.Records[] | select(.sourceIPAddress=="53.94.201.69") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A", .sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+```
+In the output we can see some logins made by Mayor Malware.
+```
+2024-11-25T21:48:22Z  signin.amazonaws.com                 ConsoleLogin             mayor_malware  53.94.201.69
+2024-11-26T22:55:51Z  signin.amazonaws.com                 ConsoleLogin             mayor_malware  53.94.201.69
+```
+Then I used the following command gathering the information for mcskidy
+```
+ubuntu@tryhackme:~/wareville_logs$ jq -r '["Event_Time","Event_Source","Event_Name", "User_Name","User_Agent","Source_IP"],(.Records[] | select(.userIdentity.userName=="mayor_ml") | [.eventTime, .eventSource, .eventName, .userIdentity.userName // "N/A",.userAgent // "N/A",.sourceIPAddress // "N/A"]) | @tsv' cloudtrail_log.json | column -t -s $'\t'
+```
+In the output the IP address to log into aws used by mcskidy was given: 31.210.15.79
+```
+2024-11-26T19:22:05Z  signin.amazonaws.com         ConsoleLogin          mcskidy    Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36        31.210.15.79
+```
+Then I used the following command to get the bank transaction detaiols of mayor malware. The account number given in the output was: 2394 6912 7723 1294.
+```
+ubuntu@tryhackme:~/wareville_logs$ grep INSERT rds.log
+```
+
+<img width="1300" alt="image" src="https://github.com/user-attachments/assets/3624bfa7-0d78-453f-8ab0-78c218f2495f">
+<img width="1300" alt="image" src="https://github.com/user-attachments/assets/1a5eff63-8d37-49af-b6f9-cc384f076165">
+
+### -New concepts
+1. AWS CloudWatch is a monitoring and observability platform that gives us greater insight into our AWS environment by monitoring applications at multiple levels.
+2. Cloudtrail is used to monitor actions in an AWS environment.
+3. JQ transforms and filters JSON data into meaningful data we can understand and use to gain security insights.
+4. JSON is an open standard file and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays.
+
+### Day 8
+
+
+
