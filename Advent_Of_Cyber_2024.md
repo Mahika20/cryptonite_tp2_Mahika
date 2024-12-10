@@ -129,7 +129,12 @@ Then I answered the questions for this task.
 1. I discovered what a SIEM is. It basically aggregates different events and information. It triggers an alert if it detects malicious activity. This alert could either be a TP or FP.
 
 ## Day 3 (incomplete)
-In this task I followed the demonstration on how to use ELK which are three open-source tools that are commonly used together to collect, store, analyse, and visualise data. 
+In this task I followed the demonstration on how to use ELK which are three open-source tools that are commonly used together to collect, store, analyse, and visualise data. I opened elastic using the given url. I selected the wareville-rails collection and added some filters to narrow down my search and view the events.
+
+
+### -New concepts
+1. KQL, or Kibana Query Language, is an easy-to-use language that can be used to search documents for values.
+2. 
 
 
 ## Day 4 
@@ -305,7 +310,26 @@ ubuntu@tryhackme:~/wareville_logs$ grep INSERT rds.log
 3. JQ transforms and filters JSON data into meaningful data we can understand and use to gain security insights.
 4. JSON is an open standard file and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays.
 
-### Day 8
+### Day 9
+In this task, we had to assess the level of risk that each of the vendors pose. First we were introduced to risk assessments. Then I started the static site attached to this task. Analyzing the response to the three questions, we had to do the assessments for the three vendors. I described the potential security riskd, assigned the impact and likelihood. 
+
+<img width="730" alt="image" src="https://github.com/user-attachments/assets/e2dc3644-69e2-41f1-92d1-3d2527c9aba2">
+
+The risks were summarized at the end of the assessment.
+
+<img width="730" alt="image" src="https://github.com/user-attachments/assets/93d8220e-275a-4791-a46c-810dc9a9e137">
+
+The vendor with the lowest risk was silver falcon and on selecting it, I got the flag.
+
+<img width="730" alt="image" src="https://github.com/user-attachments/assets/01696cc9-a583-465c-bf50-472182af25ce">
+<img width="1380" alt="image" src="https://github.com/user-attachments/assets/ea34a040-8984-4199-8c32-b0e5eebe3d4a">
+
+
+### -New concepts
+1. Governance, Risk, and Compliance (GRC) plays a crucial role in any organisation to ensure that their security practices align with their personal, regulatory, and legal obligations.
+2. I learnt how risk registers work.
+
+
 
 
 
