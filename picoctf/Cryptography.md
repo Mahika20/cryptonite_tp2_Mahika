@@ -385,7 +385,7 @@ So then I tried converting it to hexadecimal and then to ASCII and got the flag.
 
 ### FLAG: picoCTF{n33d_a_lArg3r_e_606ce004}
 
-## Challenge 4:
+## Challenge 4: ReadMyCert
 A file was provided in the challenge description. I downloaded and checked the file type. 
 
 ```
