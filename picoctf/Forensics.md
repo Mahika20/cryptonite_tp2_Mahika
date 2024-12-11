@@ -228,37 +228,8 @@ picoCTF{trust_but_verify_2cdcb2de}
 ```
 ### FLAG: picoCTF{trust_but_verify_2cdcb2de}
 
-## Challenge 5: Mob psycho (incomplete)
 
-Unzipped the apk file using the apktool d command.
-```
-mahikakapil@192 ~ % apktool d mobpsycho.apk
-I: Using Apktool 2.10.0 on mobpsycho.apk with 8 thread(s).
-I: Baksmaling classes.dex...
-I: Baksmaling classes2.dex...
-I: Baksmaling classes3.dex...
-I: Loading resource table...
-I: Decoding file-resources...
-I: Loading resource table from file: /Users/mahikakapil/Library/apktool/framework/1.apk
-I: Decoding values */* XMLs...
-I: Decoding AndroidManifest.xml with resources...
-I: Regular manifest package...
-I: Copying assets and libs...
-I: Copying unknown files...
-I: Copying original files...
-I: Copying META-INF/services directory
-```
-<img width="604" alt="image" src="https://github.com/user-attachments/assets/4fdcad86-3490-4d02-96ce-d012d60582d0">
-I changed the current directory to mobpsycho.
-
-```
-
-```
-### -New concepts
-1. The strings command in Linux is used to extract readable strings from a binary file
-
-
-## Challenge 6: St3g0
+## Challenge 5: St3g0
 In this challenge, we were given a .png file. i downloaded it and rechecked the file type using the file command.
 ```
 mahikakapil@Mahikas-MacBook-Air ~ % file pico.flag.png
@@ -315,7 +286,7 @@ b4,abgr,lsb,xy      .. file: Novell LANalyzer capture file
 
 ### FLAG: picoCTF{7h3r3_15_n0_5p00n_a9a181eb}$t3g0
 
-## Challenge 7: Sleuthkit Intro
+## Challenge 6: Sleuthkit Intro
 I started off by launching the instance and downloading the disk image. I installed the Sleuth Kit using homebrew on terminal. Then to find the size of the Linux partition I executed the mmls command. 
 ```
 mahikakapil@Mahikas-MacBook-Air ~ % cd downloads
@@ -349,7 +320,7 @@ picoCTF{mm15_f7w!}
 
 ### FLAG: picoCTF{mm15_f7w!}
 
-## Challenge 8: MacroHard WeakEdge
+## Challenge 7: MacroHard WeakEdge
 We were provided with a .pptm file named Forensics is fun.pptm. I downloaded it and tried opening it. There was nothing interesting in the ppt. The first slide had the text "Forensics is fun". I renamed the file to foren.pptm and checked the file type.
 ```
 mahikakapil@Mahikas-MacBook-Air downloads % file foren.pptm
@@ -402,7 +373,7 @@ It had the the text : Z m x h Z z o g c G l j b 0 N U R n t E M W R f d V 9 r b 
 
 ### FLAG: picoCTF{D1d_u_kn0w_ppts_r_z1p5}
 
-## Challenge 9: Wireshark doo dooo do doo...
+## Challenge 8: Wireshark doo dooo do doo...
 A file named shark1.pcapng was provided in the challenge description. I opened it in Wireshark to analyze the network traffic. In the Conversations tab of statistics, I looked for conversations with the most number of bytes.
 <img width="1464" alt="image" src="https://github.com/user-attachments/assets/23ac7c06-b9fe-4ab0-bd7e-2e97644e29cc">
 
@@ -428,4 +399,31 @@ This looked like the flag but it had to be deciphered. I guessed that it could b
 
 ### FLAG: picoCTF{p33kab00_1_s33_u_deadbeef}
 
+## Challenge 9: What Lies Within
+A .png file was provided in the challenge description. 
+
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/679b0ac2-60e3-43b7-bc91-dd8da490cf58">
+
+I downloaded it and used zsteg to get the flag.
+```
+mahikakapil@Mahikas-MacBook-Air downloads % zsteg buildings.png
+b1,r,lsb,xy         .. text: "^5>R5YZrG"
+b1,rgb,lsb,xy       .. text: "picoCTF{h1d1ng_1n_th3_b1t5}"
+b1,abgr,msb,xy      .. file: PGP Secret Sub-key -
+b2,b,lsb,xy         .. text: "XuH}p#8Iy="
+b3,abgr,msb,xy      .. text: "t@Wp-_tH_v\r"
+b4,r,lsb,xy         .. text: "fdD\"\"\"\" "
+b4,r,msb,xy         .. text: "%Q#gpSv0c05"
+b4,g,lsb,xy         .. text: "fDfffDD\"\""
+b4,g,msb,xy         .. text: "f\"fff\"\"DD"
+b4,b,lsb,xy         .. text: "\"$BDDDDf"
+b4,b,msb,xy         .. text: "wwBDDDfUU53w"
+b4,rgb,msb,xy       .. text: "dUcv%F#A`"
+b4,bgr,msb,xy       .. text: " V\"c7Ga4"
+b4,abgr,msb,xy      .. text: "gOC_$_@o"
+```
+
+### FLAG: picoCTF{h1d1ng_1n_th3_b1t5}
+
+### Challenge 11: UnforgottenBits
 
