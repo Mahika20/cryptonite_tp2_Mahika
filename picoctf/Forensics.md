@@ -403,6 +403,29 @@ It had the the text : Z m x h Z z o g c G l j b 0 N U R n t E M W R f d V 9 r b 
 ### FLAG: picoCTF{D1d_u_kn0w_ppts_r_z1p5}
 
 ## Challenge 9: Wireshark doo dooo do doo...
+A file named shark1.pcapng was provided in the challenge description. I opened it in Wireshark to analyze the network traffic. In the Conversations tab of statistics, I looked for conversations with the most number of bytes.
+<img width="1464" alt="image" src="https://github.com/user-attachments/assets/23ac7c06-b9fe-4ab0-bd7e-2e97644e29cc">
 
+Here, 1MB of bytes were flowing from the source to the destination. So, I set this conversation as the filter. Then I decided to take a look at the Protocol Hierarchy Statistics.
+<img width="1464" alt="image" src="https://github.com/user-attachments/assets/bfe14eb4-8d15-40e7-8c9e-74b2d654c510">
+Transfer of the most number of bytes took place through the HTTP protocol. Now that I had this info, I headed back to the network traffic.
+<img width="1464" alt="image" src="https://github.com/user-attachments/assets/8d277b51-ecd3-4265-813f-c2d39326d54a">
+I exported some HTTP obects with the Extract object option in the File menu.
+
+<img width="750" alt="image" src="https://github.com/user-attachments/assets/6ad498be-37c4-440d-9d70-89a20a611112">
+
+These two objects with 47 bytes and 4 bytes caught my eye. They stored text content. After, exporting these objects as filewire and instance-action respectively, I opened filewire.
+
+<img width="637" alt="image" src="https://github.com/user-attachments/assets/f89d6bfd-0d52-49c2-9bd5-02f564518104">
+
+This looked like the flag but it had to be deciphered. I guessed that it could be ROT13 cipher. On converting the text from ROT13 cipher on cyberchef, the flag was yielded.
+
+<img width="1464" alt="image" src="https://github.com/user-attachments/assets/b1be10fa-4566-47da-9acc-27496bb8697b">
+
+
+### -Learnings 
+1. I got more comfortable with wireshark with this challenge.
+
+### FLAG: picoCTF{p33kab00_1_s33_u_deadbeef}
 
 
