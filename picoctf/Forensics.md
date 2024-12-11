@@ -414,7 +414,7 @@ I exported some HTTP obects with the Extract object option in the File menu.
 
 <img width="750" alt="image" src="https://github.com/user-attachments/assets/6ad498be-37c4-440d-9d70-89a20a611112">
 
-These two objects with 47 bytes and 4 bytes caught my eye. They stored text content. After, exporting these objects as filewire and instance-action respectively, I opened filewire.
+These two objects with 47 bytes and 4 bytes caught my eye. They stored text content. After exporting these objects as filewire and instance-action respectively, I opened filewire file.
 
 <img width="637" alt="image" src="https://github.com/user-attachments/assets/f89d6bfd-0d52-49c2-9bd5-02f564518104">
 
