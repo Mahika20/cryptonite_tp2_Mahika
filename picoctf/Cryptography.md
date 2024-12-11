@@ -441,7 +441,8 @@ Certificate Request:
 ## Challenge 5: Mr Worldwide
 This challenge provided a file containing a message from a musician. The content of the flag looked like a group of coordinates plus the name of the challenge was Mr "Worldwide" so it could have something to do with locations.
 <img width="634" alt="image" src="https://github.com/user-attachments/assets/39fb4f56-efd3-4c16-ba17-683f34a72c9d">
-I searched the coordinates on maps and got the name of the following places: Kyoto, Odesa, Dayton, Fatih, Abu dhabi, Kuala lampur, Addis ababa, Loja, Amsterdam, Sleepy Hollow, Kodiak, Bab Sharqi. So I tried taking the initials of every location to form the flag: picoCTF{KODFAK_ALASKB}. However, this flag was incorrect. I tried getting the names again. After checking again, the new list of cities was: Kyoto, Odesa, Dayton, Istanbul, Abu dhabi, Kuala lampur, Addis ababa, Loja, Amsterdam, Sleepy Hollow, Kodiak, Alexandria. So the new flag would be:  picoCTF{KODIAK_ALASKA}. This was the right flag.
+
+I searched the coordinates on maps and got the names of the following places: Kyoto, Odesa, Dayton, Fatih, Abu dhabi, Kuala lampur, Addis ababa, Loja, Amsterdam, Sleepy Hollow, Kodiak, Bab Sharqi. So I tried taking the initials of every location to form the flag: picoCTF{KODFAK_ALASKB}. However, this flag was incorrect. I tried getting the names again. After checking again, the new list of places was: Kyoto, Odesa, Dayton, Istanbul, Abu dhabi, Kuala lampur, Addis ababa, Loja, Amsterdam, Sleepy Hollow, Kodiak, Alexandria. So the new flag would be:  picoCTF{KODIAK_ALASKA}. This was the right flag.
 
 ### -Mistakes
 1. Initially I noted down wrong names of places which resulted in an incorrect flag.
