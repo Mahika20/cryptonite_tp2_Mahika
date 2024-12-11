@@ -226,9 +226,9 @@ The file name files/2cdcb2de was displayed. This meant that the flag was in this
 ctf-player@pico-chall$ ./decrypt.sh files/2cdcb2de
 picoCTF{trust_but_verify_2cdcb2de}
 ```
-FLAG: picoCTF{trust_but_verify_2cdcb2de}
+### FLAG: picoCTF{trust_but_verify_2cdcb2de}
 
-### Challenge 5: Mob psycho
+### Challenge 5: Mob psycho (incomplete)
 
 Unzipped the apk file using the apktool d command.
 ```
@@ -350,5 +350,59 @@ picoCTF{mm15_f7w!}
 ### FLAG: picoCTF{mm15_f7w!}
 
 ## Challenge 8: MacroHard WeakEdge
-We were provided with a .pptm file named Forensics is fun.pptm. I downloaded it and tried opening it. There was nothing interesting in the ppt. The first slide had the text "Forensics is fun "![image](https://github.com/user-attachments/assets/5cdf24c7-dd35-4a0f-a768-51fb1d013300)
+We were provided with a .pptm file named Forensics is fun.pptm. I downloaded it and tried opening it. There was nothing interesting in the ppt. The first slide had the text "Forensics is fun". I renamed the file to foren.pptm and checked the file type.
+```
+mahikakapil@Mahikas-MacBook-Air downloads % file foren.pptm
+foren.pptm: Microsoft PowerPoint 2007+
+```
+Grepping substrings like flag, pico from the list of strings gave no results.
+```
+mahikakapil@Mahikas-MacBook-Air downloads % strings foren.pptm| grep pico
+mahikakapil@Mahikas-MacBook-Air downloads % strings foren.pptm| grep flag
+```
+I tried analyzing the ppt in outline view. The 37th slide had some text saying "Not the flag"
+
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/352bbf95-ac5e-496b-8331-7a9831ba1763">
+
+Then I decided to take a look at the macros. There was a macro named not_flag.
+
+<img width="522" alt="image" src="https://github.com/user-attachments/assets/919e8d6e-28e5-4837-a244-b147d9e46db9">
+
+I clicked on the edit button and the Microsoft Visual Basic window opened.
+
+<img width="1293" alt="image" src="https://github.com/user-attachments/assets/6aaee010-8dc3-4482-8f7e-9ef18dee5667">
+
+I had hoped to find the flag here but I was disappointed. So I looked up .pptm file on google and came across a [page](https://stackoverflow.com/questions/888784/extract-text-from-a-powerpoint-ppt-or-pptx-file) where it was mentioned that ppts are zipped xml. So, I saved the file as a zip file, unzipped it and saved it in a directory named extractedpptm.
+```
+mahikakapil@Mahikas-MacBook-Air ~ % cd downloads
+mahikakapil@Mahikas-MacBook-Air downloads % unzip forensics.zip -d extractedpptm 
+```
+With the current directory changed to extractedpptm, I ran the following commands to look for the flag.
+```
+mahikakapil@Mahikas-MacBook-Air extractedpptm % ls -R| grep flag
+mahikakapil@Mahikas-MacBook-Air extractedpptm % ls -R| grep pico
+mahikakapil@Mahikas-MacBook-Air extractedpptm % ls -R| grep ctf
+mahikakapil@Mahikas-MacBook-Air extractedpptm % ls -R| grep hid
+hidden
+```
+A file named hidden was listed. I navigated to the file in finder and opened it.
+
+<img width="1053" alt="image" src="https://github.com/user-attachments/assets/28217319-9e79-4ace-88b1-97e90cbc7ed4">
+
+It had the the text : Z m x h Z z o g c G l j b 0 N U R n t E M W R f d V 9 r b j B 3 X 3 B w d H N f c l 9 6 M X A 1 f Q. It seemed like the text could have some meaning. So, I went to cyberchef and tried decoding it. To my surprise, the flag was yielded.
+
+<img width="1178" alt="image" src="https://github.com/user-attachments/assets/24f72add-750a-4666-92f4-fcb7ee4d8afe">
+
+
+### -New concepts
+1. I found out that .ppt files are zip files.
+
+### -Errors and mistakes
+1. Initially I could not figure out where the flag was so I tried going throught the macros but there was nothing there.
+
+### FLAG: picoCTF{D1d_u_kn0w_ppts_r_z1p5}
+
+## Challenge 9: Wireshark doo dooo do doo...
+
+
 
