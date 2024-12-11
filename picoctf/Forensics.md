@@ -425,5 +425,4 @@ b4,abgr,msb,xy      .. text: "gOC_$_@o"
 
 ### FLAG: picoCTF{h1d1ng_1n_th3_b1t5}
 
-### Challenge 11: UnforgottenBits
 
