@@ -210,7 +210,7 @@ The flag was visible in the picture.
 
 ### FLAG: picoCTF{qu1t3_a_v13w_2020}
 
-### Challenge 4: Verify
+## Challenge 4: Verify
 I started off by launching the instance There was a checksum given in the description 55b983afdd9d10718f1db3983459efc5cc3f5a66841e2651041e25dec3efd46a. I connected to the instance using the ssh key. Listing the files:
 ```
 ctf-player@pico-chall$ ls
@@ -228,7 +228,7 @@ picoCTF{trust_but_verify_2cdcb2de}
 ```
 ### FLAG: picoCTF{trust_but_verify_2cdcb2de}
 
-### Challenge 5: Mob psycho (incomplete)
+## Challenge 5: Mob psycho (incomplete)
 
 Unzipped the apk file using the apktool d command.
 ```
@@ -258,7 +258,7 @@ I changed the current directory to mobpsycho.
 1. The strings command in Linux is used to extract readable strings from a binary file
 
 
-### Challenge 6: St3g0
+## Challenge 6: St3g0
 In this challenge, we were given a .png file. i downloaded it and rechecked the file type using the file command.
 ```
 mahikakapil@Mahikas-MacBook-Air ~ % file pico.flag.png
