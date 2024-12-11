@@ -210,3 +210,145 @@ The flag was visible in the picture.
 
 ### FLAG: picoCTF{qu1t3_a_v13w_2020}
 
+### Challenge 4: Verify
+I started off by launching the instance There was a checksum given in the description 55b983afdd9d10718f1db3983459efc5cc3f5a66841e2651041e25dec3efd46a. I connected to the instance using the ssh key. Listing the files:
+```
+ctf-player@pico-chall$ ls
+checksum.txt  decrypt.sh  files
+```
+To verify the checksum I generated checksums of all the files in "files" and verified it by grepping the output with the provided checksum.
+```
+ctf-player@pico-chall$ sha256sum files/* | grep 55b983afdd9d10718f1db3983459efc5cc3f5a66841e2651041e25dec3efd46a
+55b983afdd9d10718f1db3983459efc5cc3f5a66841e2651041e25dec3efd46a  files/2cdcb2de
+```
+The file name files/2cdcb2de was displayed. This meant that the flag was in this file. Then to decrypt it, I executed the following command:
+```
+ctf-player@pico-chall$ ./decrypt.sh files/2cdcb2de
+picoCTF{trust_but_verify_2cdcb2de}
+```
+FLAG: picoCTF{trust_but_verify_2cdcb2de}
+
+### Challenge 5: Mob psycho
+
+Unzipped the apk file using the apktool d command.
+```
+mahikakapil@192 ~ % apktool d mobpsycho.apk
+I: Using Apktool 2.10.0 on mobpsycho.apk with 8 thread(s).
+I: Baksmaling classes.dex...
+I: Baksmaling classes2.dex...
+I: Baksmaling classes3.dex...
+I: Loading resource table...
+I: Decoding file-resources...
+I: Loading resource table from file: /Users/mahikakapil/Library/apktool/framework/1.apk
+I: Decoding values */* XMLs...
+I: Decoding AndroidManifest.xml with resources...
+I: Regular manifest package...
+I: Copying assets and libs...
+I: Copying unknown files...
+I: Copying original files...
+I: Copying META-INF/services directory
+```
+<img width="604" alt="image" src="https://github.com/user-attachments/assets/4fdcad86-3490-4d02-96ce-d012d60582d0">
+I changed the current directory to mobpsycho.
+
+```
+
+```
+### -New concepts
+1. The strings command in Linux is used to extract readable strings from a binary file
+
+
+### Challenge 6: St3g0
+In this challenge, we were given a .png file. i downloaded it and rechecked the file type using the file command.
+```
+mahikakapil@Mahikas-MacBook-Air ~ % file pico.flag.png
+pico.flag.png: PNG image data, 585 x 172, 8-bit/color RGBA, non-interlaced
+```
+Using steghide to extract hidden data.
+```
+mahikakapil@Mahikas-MacBook-Air ~ % steghide extract -sf pico.flag.png         
+Enter passphrase: 
+steghide: the file format of the file "pico.flag.png" is not supported.
+mahikakapil@Mahikas-MacBook-Air ~ % file pico.flag.png
+
+pico.flag.png: PNG image data, 585 x 172, 8-bit/color RGBA, non-interlaced
+mahikakapil@Mahikas-MacBook-Air ~ % steghide extract -sf pico.flag.bmp
+Enter passphrase: 
+steghide: could not open the file "pico.flag.bmp".
+```
+I then tried getting the strings from the file.
+```
+mahikakapil@Mahikas-MacBook-Air ~ % strings -o pico.flag.png      
+     14 IHDR
+     43 4JIDATx
+    341 8C&_
+    367 >Q^}
+    402  J7M
+    464 B%oE
+     ...
+```
+There were a lot of strings and none of them looked like flag. Then I installed zsteg on my terminal. Running the  `zsteg pico.flag.png ` command yielded the flag.
+```
+mahikakapil@Mahikas-MacBook-Air ~ % zsteg pico.flag.png  
+b1,r,lsb,xy         .. text: "~__B>VG?G@"
+b1,rgb,lsb,xy       .. text: "picoCTF{7h3r3_15_n0_5p00n_a9a181eb}$t3g0"
+b1,abgr,lsb,xy      .. text: "E2A5q4E%uSA"
+b2,b,lsb,xy         .. text: "AAPAAQTAAA"
+b2,b,msb,xy         .. text: "HWUUUUUU"
+b2,a,lsb,xy         .. file: Matlab v4 mat-file (little endian) ><?P, numeric, rows 0, columns 0
+b2,a,msb,xy         .. file: Matlab v4 mat-file (little endian) | <?, numeric, rows 0, columns 0
+b3,r,lsb,xy         .. file: gfxboot compiled html help file
+b4,r,lsb,xy         .. file: Targa image data (16-273) 65536 x 4097 x 1 +4352 +4369 - 1-bit alpha - right ""
+b4,g,lsb,xy         .. file: 0420 Alliant virtual executable not stripped
+b4,b,lsb,xy         .. file: Targa image data - Map 272 x 17 x 16 +257 +272 - 1-bit alpha ""
+b4,bgr,lsb,xy       .. file: Targa image data - Map 273 x 272 x 16 +1 +4113 - 1-bit alpha ""
+b4,rgba,lsb,xy      .. file: Novell LANalyzer capture file
+b4,rgba,msb,xy      .. file: Applesoft BASIC program data, first line number 8
+b4,abgr,lsb,xy      .. file: Novell LANalyzer capture file
+```
+
+### -New concepts
+1. I usede the zsteg command for the first time
+
+### -Errors and mistakes
+1. Intially I tried extracting the data from the image by converting it itnto a .bmp file and using steghide but it asked for a passphrase which I did not have. 
+
+### FLAG: picoCTF{7h3r3_15_n0_5p00n_a9a181eb}$t3g0
+
+## Challenge 7: Sleuthkit Intro
+I started off by launching the instance and downloading the disk image. I installed the Sleuth Kit using homebrew on terminal. Then to find the size of the Linux partition I executed the mmls command. 
+```
+mahikakapil@Mahikas-MacBook-Air ~ % cd downloads
+mahikakapil@Mahikas-MacBook-Air downloads % mmls disk.img
+DOS Partition Table
+Offset Sector: 0
+Units are in 512-byte sectors
+
+      Slot      Start        End          Length       Description
+000:  Meta      0000000000   0000000000   0000000001   Primary Table (#0)
+001:  -------   0000000000   0000002047   0000002048   Unallocated
+002:  000:000   0000002048   0000204799   0000202752   Linux (0x83)
+```
+Then I connected to the remote checker service and inputted the length of the Linux partition.
+
+```
+mahikakapil@Mahikas-MacBook-Air downloads % nc saturn.picoctf.net 65368
+What is the size of the Linux partition in the given disk image?
+Length in sectors: 0000202752
+0000202752
+Great work!
+picoCTF{mm15_f7w!}
+```
+
+### -New concepts
+1. I learnt about sleuthkit and how to use it to view the partition table of a disk.
+2. Disk Partitioning is the process of dividing a disk into one or more logical areas, often known as partitions, on which the user can work separately.
+
+### -References
+1. [Sleuthkit commands](https://wiki.sleuthkit.org/index.php?title=Mmls)
+
+### FLAG: picoCTF{mm15_f7w!}
+
+## Challenge 8: MacroHard WeakEdge
+We were provided with a .pptm file named Forensics is fun.pptm. I downloaded it and tried opening it. There was nothing interesting in the ppt. The first slide had the text "Forensics is fun "![image](https://github.com/user-attachments/assets/5cdf24c7-dd35-4a0f-a768-51fb1d013300)
+
