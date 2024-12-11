@@ -384,3 +384,66 @@ So then I tried converting it to hexadecimal and then to ASCII and got the flag.
 3. [Cuberoot](https://stackoverflow.com/questions/55436001/cube-root-of-a-very-large-number-using-only-math-library)
 
 ### FLAG: picoCTF{n33d_a_lArg3r_e_606ce004}
+
+## Challenge 4:
+A file was provided in the challenge description. I downloaded and checked the file type. 
+
+```
+mahikakapil@192 downloads % file readmycert.csr
+readmycert.csr: PEM certificate request
+```
+Then I tried catting the content of the file and grepping it with keywords from the flag but to no avail.
+```
+mahikakapil@192 downloads % cat readmycert.csr
+-----BEGIN CERTIFICATE REQUEST-----
+MIICpzCCAY8CAQAwPDEmMCQGA1UEAwwdcGljb0NURntyZWFkX215Y2VydF81YWVi
+MGQ0Zn0xEjAQBgNVBCkMCWN0ZlBsYXllcjCCASIwDQYJKoZIhvcNAQEBBQADggEP
+ADCCAQoCggEBAMCkf11rmV8rgqPvC2ZiPA6W+5RfOTwU6u3WpGvLA+2YFzocBPut
+aATTxTPB+uaN2ZN3Z5J2CTFGmPzI4sUQfSqhZGuAqbfMyDDR8pRswmIYVJ6s0Apc
+Toi7H8m3IShSbeE0pZUSIJpbK1a7V6lJqgwFMDI1qrgNhGgZaMA/l+d2J0vC3EYd
+AijwSs8APcp6woWbFGYwdw5KaBsjn23oVz2G4h3/TmdB5g5e6Oq+kgi38NEpRDS0
+ylXo9mUko3FqS4I6y9gOtDEI4uZaCJZuXHDmBpqZ04MfXbIVlHjF9NMOjDvXLonN
+650oaANBm4bhBlgid0Fx48Z36tbtAVivZEcCAwEAAaAmMCQGCSqGSIb3DQEJDjEX
+MBUwEwYDVR0lBAwwCgYIKwYBBQUHAwIwDQYJKoZIhvcNAQELBQADggEBAHZx6h9r
+G/SE7RCoX6ndk5BOJprRiHpxOqPLAWcDyKHfStln0/HcQZzIrRVRsmoHiOmch+md
+PBA1b+M5aj+3BWtPR9jOY4vht+ZmHAKa0WfQxwb2dBxsRPKTTDea0wN2u8BHLlSM
+PbWPNuz+TKySL41xfwFuM4VN/ywn58GTvdb7HXgwNZCGgo2N1WhRq/dBMiagXMah
+yb6gX4erugCu61T5tyD80hgsNBjaqyIdy/whRfC/Pmn3QHmdkqB5ZCPezwb2OLm4
+5RDGv3WOB5q0BofoUGhVq757QE8qhL3oTvV2WlLoi3YWaZkJMCeR3vnH92cKC1Ov
+FxdQuLOH8GMvl7U=
+-----END CERTIFICATE REQUEST-----
+mahikakapil@192 downloads % cat readmycert.csr| grep pico
+mahikakapil@192 downloads % cat readmycert.csr| grep flag
+mahikakapil@192 downloads % cat readmycert.csr| grep ctf
+```
+I looked up commands to access the content of a .csr file. Then I ran the command `openssl req -in readmycert.csr  -text` to processes certificate request. The following snippet of the output contains the flag.
+```
+mahikakapil@192 downloads % openssl req -in readmycert.csr  -text        
+Certificate Request:
+    Data:
+        Version: 1 (0x0)
+        Subject: CN=picoCTF{read_mycert_5aeb0d4f}, name=ctfPlayer
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+```
+
+
+### -New concepts
+1. I came across PEM certificate request for the first time. PEM files are used to store SSL certificates and their associated private keys.
+
+### -References
+1. [Open SSL commands](https://www.xolphin.com/support/OpenSSL/Frequently_used_OpenSSL_Commands)
+
+### FLAG: picoCTF{read_mycert_5aeb0d4f}
+
+## Challenge 5: Mr Worldwide
+This challenge provided a file containing a message from a musician. The content of the flag looked like a group of coordinates plus the name of the challenge was Mr "Worldwide" so it could have something to do with locations.
+<img width="634" alt="image" src="https://github.com/user-attachments/assets/39fb4f56-efd3-4c16-ba17-683f34a72c9d">
+I searched the coordinates on maps and got the name of the following places: Kyoto, Odesa, Dayton, Fatih, Abu dhabi, Kuala lampur, Addis ababa, Loja, Amsterdam, Sleepy Hollow, Kodiak, Bab Sharqi. So I tried taking the initials of every location to form the flag: picoCTF{KODFAK_ALASKB}. However, this flag was incorrect. I tried getting the names again. After checking again, the new list of cities was: Kyoto, Odesa, Dayton, Istanbul, Abu dhabi, Kuala lampur, Addis ababa, Loja, Amsterdam, Sleepy Hollow, Kodiak, Alexandria. So the new flag would be:  picoCTF{KODIAK_ALASKA}. This was the right flag.
+
+### -Mistakes
+1. Initially I noted down wrong names of places which resulted in an incorrect flag.
+
+### FLAG: picoCTF{KODIAK_ALASKA}
