@@ -425,4 +425,25 @@ b4,abgr,msb,xy      .. text: "gOC_$_@o"
 
 ### FLAG: picoCTF{h1d1ng_1n_th3_b1t5}
 
+## Challenge 10: Disk, disk, sleuth!
+I executed the mmls command to take a look at the partition table.
+```
+mahikakapil@192 downloads % mmls dds1-alpine.flag.img
+DOS Partition Table
+Offset Sector: 0
+Units are in 512-byte sectors
 
+      Slot      Start        End          Length       Description
+000:  Meta      0000000000   0000000000   0000000001   Primary Table (#0)
+001:  -------   0000000000   0000002047   0000002048   Unallocated
+002:  000:000   0000002048   0000262143   0000260096   Linux (0x83)
+```
+Then I used the srch_strings and grepped the output with the substring pico for the flag
+```
+mahikakapil@192 downloads % srch_strings -a dds1-alpine.flag.img| grep pico
+ffffffff81399ccf t pirq_pico_get
+ffffffff81399cee t pirq_pico_set
+ffffffff820adb46 t pico_router_probe
+  SAY picoCTF{f0r3ns1c4t0r_n30phyt3_dcbf5942}
+```
+### FLAG: picoCTF{f0r3ns1c4t0r_n30phyt3_dcbf5942}
