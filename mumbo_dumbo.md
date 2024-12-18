@@ -1,5 +1,5 @@
 # Mumbo dumbo
-This was a challenge in the AI domain of nitectf. We were provided a python file containing the source code and the netcat command to connect to the challenge. I analayzed the pow.py file.
+This was a challenge in the AI domain of nitectf. We were provided with a python file containing the source code and the netcat command to connect to the challenge. I analayzed the pow.py file.
 ```
      sys.stdout.write("== proof-of-work: enabled ==\n")
         sys.stdout.write("please solve a pow first\n")
