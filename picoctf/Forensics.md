@@ -447,3 +447,26 @@ ffffffff820adb46 t pico_router_probe
   SAY picoCTF{f0r3ns1c4t0r_n30phyt3_dcbf5942}
 ```
 ### FLAG: picoCTF{f0r3ns1c4t0r_n30phyt3_dcbf5942}
+
+## Challenge 11: Eavesdrop
+We were given a .pcap file. It was mentioned in the hint that this packet capture included a chat conversation and a file transfer. I followed the tcp stream and came across the following converation.
+
+<img width="1057" alt="image" src="https://github.com/user-attachments/assets/e6ab9673-cd4b-41f9-8f19-202adad846d3" />
+
+From this we find out that the file is transferred over port 9002 and the command to decrypt it is `openssl des3 -d -salt -in file.des3 -out file.txt -k supersecretpassword123`. I also observed that the file was encrypted with Triple DES. Then I followed the stream from port 9002.
+
+<img width="702" alt="image" src="https://github.com/user-attachments/assets/d08ed9bd-aedd-4d08-ad00-a1ba88d9253c" />
+
+I converted it back to raw and saved it as file.des3. Then I executed the following command.
+```
+mahikakapil@Mahikas-MacBook-Air downloads % openssl des3 -d -salt -in file.des3 -out file.txt -k supersecretpassword123        
+*** WARNING : deprecated key derivation used.
+Using -iter or -pbkdf2 would be better.
+```
+A new file file.txt was containing the flag was created.
+
+### -Learnings
+1. I learnt how to analyze streams better.
+2. Came across openssl which is an open-source software library that provides cryptographic functions and protocols for secure communication over networks.
+
+### FLAG: picoCTF{nc_73115_411_0ee7267a}
