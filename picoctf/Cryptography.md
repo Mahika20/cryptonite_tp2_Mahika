@@ -448,3 +448,202 @@ I searched the coordinates on maps and got the names of the following places: Ky
 1. Initially I noted down wrong names of places which resulted in an incorrect flag.
 
 ### FLAG: picoCTF{KODIAK_ALASKA}
+
+## Challenge 6: Mini RSA
+In this challenge we were given a file containing the N, e and c values for the RSA encryption. It was specified that the plaintext was padded. I wrote the following python code to get the flag.
+```
+import math
+from Crypto.Util.number import *
+
+c=int("""122001231858887188613252475789888442217453455805559371330908830491
+02739910735547326599771339806853708992578501219708124057007937105466740621542
+375448401776167468056686663174811408726056537684848672921381399490761029073998
+319988275676452309863454559156928630943647975264973020827349559037550506381552
+0289059980814727660578288981377299291889840040802606764246414188506737961491843
+7023839625205930332182990301333585691581437573708925507991608699550931884734959475
+780164693178925308303420298715231388421829397209435815583140323329070684583974607064056
+215836529244330562254568162453025117819569708767522400676415959028292550922595255396
+203239357606521218664984826377129270592358124859832816717406984802489441913267065210
+67408774368505816453982262381083175484590066023041695032156352372395923276609429290554
+32741077128674865906461616284021980492215677741735780885273670848439248432663611348422
+690344595606123607633835472513787936413041510
+38512392821572406034926965112582374825926358165795831789031647600129008730""".replace("\n", ""))
+
+n=int("""161576568432146305407822605195988788423367831773489290174076332113521363679607546240195027460240509513858989808742833775844501328148896686607335571077186467172699191870655807123126697642718467380022525453169592854127254638514649573642026181569381054458981110496782935446149117820012609966190965416354266154169940483964403517744509298895261491842431708238017438381902558507620664199347932657618079354432119435701891621511300974265440859708372450816921618200844969391722749781316544437220151754178898992546171106782568194794747100139084377474644269973938692328580102268545122126101079883764692809227755619814566292469180303288004049276244256149776068993360178140161708660059348212746565539084136115402589067975751406045610310419925591716467816197273585893946479096044834598894148149905024867312865650805528503709002643968384
+72665362831601420716430154348134734634697331121823286787067021160540366182775069976665345678467639386923350699557552444384153779
+33440029498378955355877502743215305768814857864433151287""".replace("\n", ""))
+
+e=3
+def ip(x,n):
+    up = 1
+    while up ** n < x:
+        up *= 2
+    low = up//2
+    while low < up:
+        mid = (low + up) // 2
+        if low < mid and mid**n < x:
+            low = mid
+        elif up > mid and mid**n > x:
+            up = mid
+        else:
+            return mid
+    return mid + 1
+
+for i in range(10000):
+    flag = long_to_bytes(ip(i*n+c,3))
+    if b'pico' in flag:
+      f = str(flag)[2:-1].lstrip(" ")
+      print(f)
+      break
+```
+
+### -New concepts
+1. Used long_to_bytes function from Crypto.util.number package to convert the long int value to bytes.
+
+### -Errors and mistakes
+1. Initially I thought that finding the (1/e)th power of c would yield the flag but that didn't work as there was padding.
+
+### -References
+1. [Crypto.util.number](https://pycryptodome.readthedocs.io/en/latest/src/util/util.html#module-Crypto.Util.number)
+
+### FLAG: picoCTF{e_sh0u1d_b3_lArg3r_85d643d5}
+
+## Challenge 7: Mind your Ps and Qs
+In this challenge, we had a small value for n which meant that we could find the values of p and q by finding the prime factors of n.
+<img width="796" alt="image" src="https://github.com/user-attachments/assets/3cb6bb56-5eeb-41a6-a8c8-8e0c49b07c60" />
+Then I wrote the following python code
+```
+from Crypto.Util.number import *
+c = 8533139361076999596208540806559574687666062896040360148742851107661304651861689
+n = 769457290801263793712740792519696786147248001937382943813345728685422050738403253
+e = 65537
+p = 475693130177488446807040098678772442581573
+q = 1617549722683965197900599011412144490161
+phi = (p - 1) * (q - 1)
+
+def extended_gcd(a, b):
+    if b == 0:
+        return a, 1, 0
+    gcd, x1, y1 = extended_gcd(b, a % b)
+    x = y1
+    y = x1 - (a // b) * y1
+    return gcd, x, y
+
+
+gcd, d, _ = extended_gcd(e, phi)
+if gcd != 1:
+    print("e and phi are not coprime, decryption is not possible.")
+else:
+    d = d % phi  
+    print(f"Private exponent d: {d}")
+    m = pow(c, d, n)  
+    print(f"Decrypted message (m): {m}")
+flag = long_to_bytes(m)
+f = str(flag).lstrip(" ")
+print(f)
+```
+This gave the following output:
+```
+Private exponent d: 582402748221564772374696843202153883711652351188297188998024166320268538694734273
+Decrypted message (m): 13016382529449106065927291425342535437996222135352905256639629442503647501498237
+b'picoCTF{sma11_N_n0_g0od_45369387}'
+```
+### -New concepts
+1. I learned how to use extended euclidean algorithm to calculate d.
+   
+### -References
+1. [extended euclidean algo](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm)
+
+### FLAG: picoCTF{sma11_N_n0_g0od_45369387}
+
+## Challenge 8: Pixelated
+In this challenge we were given 2 images and we had to make a flag out of them. I stacked the images using the following code:
+```
+from PIL import Image
+
+im1 = Image.open("scrambled1.png").convert('L') 
+im2 = Image.open("scrambled2.png").convert('L')
+
+im3 = Image.blend(im1, im2, 0.5) 
+im3.show()
+```
+However, there was nothing visible in the image except a tiny blotch. So I used an online image magnifier to analyze the image and I could see the flag.
+<img width="1449" alt="image" src="https://github.com/user-attachments/assets/24f9b952-3402-4cf1-b81c-741a072aa9af" />
+
+### -New concepts
+1. I learnt how to use the blend method to stack 2 images.
+
+### -References
+1. [Blend](https://www.geeksforgeeks.org/python-pil-blend-method/)
+
+### FLAG: picoCTF{0542dc1d}
+
+## Challenge 9: basic-mod1
+We were given a message to decrypt. The decryption scheme was: `Take each number mod 37 and map it to the following character set: 0-25 is the alphabet (uppercase), 26-35 are the decimal digits, and 36 is an underscore.` I wrote the following python code.
+
+```
+dig = [350, 63, 353, 198, 114, 369, 346, 184, 202, 322, 94, 235, 114, 110, 185, 188, 225, 212, 366, 374, 261, 213]
+
+
+alphabet = [chr(i) for i in range(ord('A'), ord('Z') + 1)]
+digits = [str(i) for i in range(0, 10)]
+underscore = ["_"]
+charset = alphabet + digits + underscore
+
+l = []
+for i in dig:
+    j= i%37  
+    l.append(charset[j])  
+
+print("Decoded message:", "".join(l))    
+```
+The output was:
+```
+Decoded message: R0UND_N_R0UND_ADD17EC2
+```
+### FLAG: picoCTF{R0UND_N_R0UND_ADD17EC2}
+
+## Challenge 10: substitution0
+For this challenge, were given a scrambled message and the key for the substitution. I executed the following decryption code.
+```
+key = "OHNFUMWSVZLXEGCPTAJDYIRKQB"  
+alphabet = [chr(i) for i in range(ord('a'), ord('z') + 1)]  
+d = {}
+
+for k, a in zip(key, alphabet):
+    d[k.lower()] = a  
+
+flag = "pvncNDM{5YH5717Y710G_3I0XY710G_03055505}".lower()
+
+decrypted = ""
+for i in flag:
+    if i in d:
+        decrypted += d[i]  
+    else:
+        decrypted += i   
+
+print(decrypted)
+```
+Here, a dictionary is being created with the characters from the key as the dictionary keys and the alphabet as the values and the substitution takes place to yield the flag.
+
+### FLAG: picoctf{5ub5717u710n_3v0lu710n_03055505}
+
+## Challenge 11: credstuff
+In this challenge we had to find the password of the user cultiris and decrypt it. Executing the following code printed the encrypted flag.
+```
+with open("usernames.txt", "r") as user_file, open("passwords.txt", "r") as pass_file:
+    usernames = user_file.readlines()
+    passwords = pass_file.readlines()
+
+usernames = [username.strip() for username in usernames]
+passwords = [password.strip() for password in passwords]
+d = {usernames[i]: passwords[i] for i in range(len(usernames))}
+
+for i in d:
+    if (i=="cultiris"):
+        print(d[i])
+```
+The encrypted flag was: cvpbPGS{P7e1S_54I35_71Z3}. Now moving on to its decryption. It looked like a ROT13 cypher so I went to cyberchef and deciphered the flag.
+<img width="1167" alt="image" src="https://github.com/user-attachments/assets/e3a047f3-64ca-4709-9e59-ea18f63e219c" />
+
+### FLAG: picoCTF{C7r1F_54V35_71M3}
