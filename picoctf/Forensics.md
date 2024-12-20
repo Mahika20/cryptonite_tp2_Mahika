@@ -498,7 +498,7 @@ This part caught my eye as I observed `==` which indicated a base64 encryption. 
 
 ### FLAG: picoCTF{dns_3xf1l_ftw_deadbeef}
 
-### Challenge 13: Matryoshka doll
+## Challenge 13: Matryoshka doll
 We were given a jpg file. I first tried gettingg some info by using the strings command but there were no results.
 ```
 mahikakapil@Mahikas-MacBook-Air downloads % strings -o  dolls.jpg| grep flag
@@ -525,16 +525,49 @@ On extracting the data from the 4th doll image, I came across a file named flag.
 
 ### FLAG: picoCTF{4cf7ac000c3fb0fa96fb92722ffb2a32}
 
-### Challenge 14: PcapPoisoning
+## Challenge 14: PcapPoisoning
 I opened the file in wireshark. I saw this conversation with a malformed packet and also a request containing the username and password.
 <img width="1425" alt="image" src="https://github.com/user-attachments/assets/0dcf933b-0353-46a4-b692-0015ee39f76d" />
-Then thestream index 1 was set as the filter.
-<img width="1425" alt="image" src="https://github.com/user-attachments/assets/60c1cd51-e909-4866-ac6b-0660f45a22f1" />
-I viewed the packets bytes of the second result and found the flag there.
-<img width="774" alt="image" src="https://github.com/user-attachments/assets/6edf1079-baed-4ea8-8017-c43906f188fd" />
 
-<img width="774" alt="image" src="https://github.com/user-attachments/assets/9238f952-1320-4e77-80e6-5e99abe6bfd0" />
+So, I followed the tcp stream of the request.
 
 <img width="442" alt="image" src="https://github.com/user-attachments/assets/b7a4500b-d04b-4dbb-87ea-240f22b0f29d" />
 
+Then the stream index 1 was set as the filter.
+<img width="1425" alt="image" src="https://github.com/user-attachments/assets/60c1cd51-e909-4866-ac6b-0660f45a22f1" />
+
+I viewed the packets bytes of the second result and found the flag there.
+
+<img width="774" alt="image" src="https://github.com/user-attachments/assets/6edf1079-baed-4ea8-8017-c43906f188fd" />
+
 ### FLAG: picoCTF{P64P_4N4L7S1S_SU55355FUL_5b6a6061}
+
+## Challenge 15: MSB
+We were given a corrupted png file. I started off by opening it in hexedit and checking the png file signature header. It all seemed fine. So then I tried getting strings and grepping substrings like pico and flag but got nothing. Next, I installed stegsolve and opened the image in it. I checked the image in different planes but nothing interesting came up. So, I clicked on the data extract option in the analyze menu and played around with the settings to get something useful.
+
+<img width="981" alt="image" src="https://github.com/user-attachments/assets/496447bd-2912-48c0-81fe-fde9013fbe3b" />
+
+When I set red, blue and green bit planes to 7, I observed readable text in the hexdump. I saved it as a file. There was a lot of text so I grepped the flag using the following command.
+```
+mahikakapil@Mahikas-MacBook-Air downloads % strings ninja | grep -C 5 pico
+
+20646f2c20616e64 20646f6573206e6f   do, and  does no
+7420646573657276 6520667572746865  t deserv e furthe
+720a70756e697368 6d656e7420756e6c  r.punish ment unl
+6573732068652063 6f6d6d6974732073  ess he c ommits s
+6f6d65206e657720 6f6666656e63652e  ome new  offence.
+220a7069636f4354 467b31355f793075  ".picoCT F{15_y0u
+725f71756535375f 7175317830373163  r_que57_ qu1x071c
+5f30725f68337230 31635f6561376465  _0r_h3r0 1c_ea7de
+6234637d0a0a2254 686f752068617374  b4c}.."T hou hast
+2073616964207765 6c6c20616e642068   said we ll and h
+6974207468652070 6f696e742c222061  it the p oint," a
+```
+### -New Concepts
+1. I learnt how to use stegsolve tool to extract data from images.
+
+### -Errors and mistakes
+1. At first when I grepped the flag using the substring `pico`, I only got half of the flag as the remaining part was in the next line. So I printed 5 lines before and after the substring to get the complete flag.
+
+### FLAG: picoCTF{15_y0ur_que57_qu1x071c_0r_h3r01c_ea7deb4c}
+
