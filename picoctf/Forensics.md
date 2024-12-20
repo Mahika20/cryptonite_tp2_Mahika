@@ -470,3 +470,71 @@ A new file file.txt was containing the flag was created.
 2. Came across openssl which is an open-source software library that provides cryptographic functions and protocols for secure communication over networks.
 
 ### FLAG: picoCTF{nc_73115_411_0ee7267a}
+
+## Challenge 12: Wireshark twoo twooo two twoo...
+I started off by analyzing the conversations of the pcap file and set the protocol where most bytes were being transferred as the filter.
+
+<img width="1167" alt="image" src="https://github.com/user-attachments/assets/dbe87d83-4a79-4349-a066-96f2a86a16c6" />
+
+I tried exporting objects. There were several text files named flag so finding the flag wasn't going to be as easy as I initially thought. None of the files seemed to contain the flag. I exported one more file which said `The official Red's Shrimp and Herring website is still under construction. Please check back later!`. I decided to analyze the traffic more closely. I came across some DNS queries to the website.
+
+<img width="1463" alt="image" src="https://github.com/user-attachments/assets/f10c488f-2179-442a-8364-19b7cbc8d1fd" />
+
+I then set dns protocol as the filter and looked at the info.
+
+<img width="1428" alt="Pasted Graphic 1" src="https://github.com/user-attachments/assets/64fdbbe6-524e-41ff-8b62-f95d3be92f33" />
+
+This part caught my eye as I observed `==` which indicated a base64 encryption. So, I tried something out. I took the random characters prefixing .reddshrimpandherring.com, put them together and tried converting back the string from base64.
+
+<img width="974" alt="Pasted Graphic 2" src="https://github.com/user-attachments/assets/d6d44d7c-6ae0-4e01-a2c5-b1e470af4a3b" />
+￼
+
+### -New Concepts
+1.  Domain Name System (DNS) protocol is a set of rules that allows users to access websites by typing domain names instead of IP addresses
+
+### -Errors and mistakes
+1. There were a lot of files named flag and I exported some but they did not have the right flag.
+2. I wasted some time trying to figure out where the real flag was located.
+
+### FLAG: picoCTF{dns_3xf1l_ftw_deadbeef}
+
+### Challenge 13: Matryoshka doll
+We were given a jpg file. I first tried gettingg some info by using the strings command but there were no results.
+```
+mahikakapil@Mahikas-MacBook-Air downloads % strings -o  dolls.jpg| grep flag
+mahikakapil@Mahikas-MacBook-Air downloads % strings -o  dolls.jpg| grep pico
+mahikakapil@Mahikas-MacBook-Air downloads % strings -o  dolls.jpg| grep hid
+```
+Next I tried exiftool. There was a warning mentioned in the output.
+```
+Apple Data Offsets              : (Binary data 28 bytes, use -b option to extract)
+Warning                         : [minor] Trailer data after PNG IEND chunk
+Image Size                      : 594x1104
+Megapixels                      : 0.656
+mahikakapil@Mahikas-MacBook-Air download
+```
+` Trailer data after PNG IEND chunk` This warning indicated that there was some additional data after the end of the image data. So, I used binwalk to extract that data. A zip archive was extracted. On opening it, I found out the base image.
+<img width="697" alt="image" src="https://github.com/user-attachments/assets/29d2339a-5327-4f89-a7e2-6a98db5d66ac" />
+
+By repeating the above steps with this image file, I extracted the following doll images.
+
+<img width="555" alt="image" src="https://github.com/user-attachments/assets/5013ec33-b503-4144-a589-b0a4ad0f8ace" />
+<img width="555" alt="image" src="https://github.com/user-attachments/assets/97f60819-1fb7-4562-8162-5e49cce669b0" />
+
+On extracting the data from the 4th doll image, I came across a file named flag.txt. I hoped to find the flag here but there was just the letter 'p' in the file. But then I catted it and got the flag.
+
+### FLAG: picoCTF{4cf7ac000c3fb0fa96fb92722ffb2a32}
+
+### Challenge 14: PcapPoisoning
+I opened the file in wireshark. I saw this conversation with a malformed packet and also a request containing the username and password.
+<img width="1425" alt="image" src="https://github.com/user-attachments/assets/0dcf933b-0353-46a4-b692-0015ee39f76d" />
+Then thestream index 1 was set as the filter.
+<img width="1425" alt="image" src="https://github.com/user-attachments/assets/60c1cd51-e909-4866-ac6b-0660f45a22f1" />
+I viewed the packets bytes of the second result and found the flag there.
+<img width="774" alt="image" src="https://github.com/user-attachments/assets/6edf1079-baed-4ea8-8017-c43906f188fd" />
+
+<img width="774" alt="image" src="https://github.com/user-attachments/assets/9238f952-1320-4e77-80e6-5e99abe6bfd0" />
+
+<img width="442" alt="image" src="https://github.com/user-attachments/assets/b7a4500b-d04b-4dbb-87ea-240f22b0f29d" />
+
+### FLAG: picoCTF{P64P_4N4L7S1S_SU55355FUL_5b6a6061}
