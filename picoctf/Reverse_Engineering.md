@@ -21,7 +21,7 @@ debugger0_a[0x113e] <+21>: ret
 ```
 From the output we can observe that the eax register value is 0x86342 which is in hexadecimal format. So, to convert it to decimal  I	ran the command `(lldb) print 0x86342` which gave `(int) 549698` as the output.
 
--New concepts:
+### -New concepts:
 1. I learned how debuggers like gdb and lldb can be used to disassemble functions.
 2. gdb and lldb are similar in function but their commands and syntax differ.
 3. Registers: They are small, fast storage locations within a computer's CPU that hold data, addresses, or instructions.
@@ -29,8 +29,9 @@ From the output we can observe that the eax register value is 0x86342 which is i
 
 
 
-References: [LLDB commands](https://www.kodeco.com/books/advanced-apple-debugging-reverse-engineering/v3.0/chapters/A-appendix-a-lldb-cheatsheet)
-Flag link: picoCTF{549698}
+### -References: [LLDB commands](https://www.kodeco.com/books/advanced-apple-debugging-reverse-engineering/v3.0/chapters/A-appendix-a-lldb-cheatsheet)
+
+### FLAG: picoCTF{549698}
 
 
 ## Challenge 2: ARMssembly 1
@@ -107,14 +108,14 @@ main:
 On analyzing the rest of the code, we can see `cmp     w0, 0
         bne     .L4` which means that the program will go to .L4 label if the result of w0-0 is not zero. Our goal is to jump to the .LC0 label, hence, w0 should be 0.  So if we combine our earlier observations and this new observation, the user input should be 90 to store 0 in w0. Finally, by converting 90 to hex we get 0x5A. By removing 0x, making it lowercase and 32 bits the final result we get is 0000005a. The flag is picoCTF{0000005a}.
 
--New concepts:
+### -New concepts:
 1. MOV instruction is used for moving data from one storage space to another.  It can also move constant values to a destination register. Syntax: mov destination, source
 2. STR instruction stores a register value into memory.
 3. LSL (Logical Shift Left) is an instruction that moves the right-hand bits of a register to the left.
 4. LDR is Load instruction that loads a value from memory into the register.
 5. cmp instruction subtracts the two operands
 
--Errors:
+### -Errors:
 1. I was trying to debug chall_1.S using lldb directly but it gave the following error: 
 ```
 (lldb) target create "chall_1.S"
@@ -146,6 +147,26 @@ Then I finally came across Vim editor and used the `vim <filename>` command to o
 2. I initially spent a lot of time trying to make the file executable but instead had to focus more on ananlyzing the assembly code.
 
 
-References: [ARM Assembly cheatsheet](https://cheatography.com/syshella/cheat-sheets/arm-assembly/)
+### References: [ARM Assembly cheatsheet](https://cheatography.com/syshella/cheat-sheets/arm-assembly/)
 
-Flag: picoCTF{0000005a}
+### FLAG: picoCTF{0000005a}
+
+## Challenge 3: Vault Door 3
+In this challenge, the following source code was provided.
+
+<img width="714" alt="Pasted Graphic 34" src="https://github.com/user-attachments/assets/2ba3f881-f615-468e-87c0-f1eb73f3f77b">
+
+<img width="714" alt="for (1=0;" src="https://github.com/user-attachments/assets/523fba7d-9ce1-493d-b50d-32ae2813208b">
+
+I looked at the checkPassword function and thought of writing a C program with this function and passing "jU5t_a_sna_3lpm12g94c_u_4_m7ra41" as an argument to it. "jU5t_a_sna_3lpm12g94c_u_4_m7ra41" looks like the flag but the words seem shuffled. 
+
+
+<img width="556" alt="Pasted Graphic 32" src="https://github.com/user-attachments/assets/fb7550ad-a625-4b00-99e1-f47b8d7baf49">
+
+The output had the right arrangement of the flag. 
+
+### -New concepts
+1. I learned how to analyze a code and work with it to get the flag.
+
+
+### FLAG: picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_c79a21}
