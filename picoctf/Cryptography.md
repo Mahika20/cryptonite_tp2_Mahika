@@ -957,3 +957,66 @@ print(long_to_bytes(FLAG))
 ```
 
 ### FLAG: picoCTF{pl33z_n0_g1v3_c0ngru3nc3_0f_5qu4r35_3921def5}
+
+
+## Challenge 18: RSA-oracle
+I started off by reading password.enc and message.enc
+```
+mahikakapil@192 downloads % cat password.enc
+4228273471152570993857755209040611143227336245190875847649142807501848960847851973658239485570030833999780269457000091948785164374915942471027917017922546%
+mahikakapil@192 downloads % cat secret.enc 
+Salted__?rF7?]?{O?e3L?b?A??h??,?Ո;u{?^?a??X?7?0??ծ0???2|l8O&7%
+```
+Secret.enc was an openssl encrypted file. To access its content, we needed the decrypted password but oracle wouldn't decrypt the password. So, I took a random number l=2 and encrypted it. 
+```
+mahikakapil@192 downloads % nc titan.picoctf.net 57745
+*****************************************
+****************THE ORACLE***************
+*****************************************
+what should we do for you? 
+E --> encrypt D --> decrypt. 
+E
+enter text to encrypt (encoded length must be less than keysize): 2
+2
+
+encoded cleartext as Hex m: 32
+
+ciphertext (m ^ e mod n) 4707619883686427763240856106433203231481313994680729548861877810439954027216515481620077982254465432294427487895036699854948548980054737181231034760249505
+```
+I took the product of the above ciphertext and the encrypted password and decrypted it.
+```
+from Crypto.Util.number import long_to_bytes
+import math
+
+e=65537
+l=2
+c=4707619883686427763240856106433203231481313994680729548861877810439954027216515481620077982254465432294427487895036699854948548980054737181231034760249505
+pw=4228273471152570993857755209040611143227336245190875847649142807501848960847851973658239485570030833999780269457000091948785164374915942471027917017922546
+pdt=c*pw
+
+print(pdt)
+```
+```
+Enter text to decrypt: 19905104266461674438427749120035481333430848061235340017498754943327360989060077822957076637919794979148279735224896131374733698562836139551270909235193224215437233163101052237584916525504858889351339402233392061749581481707426238265002525969310836283110708030433599547806496303497230632152297549255724839730
+10778181998225decrypted ciphertext as hex (c ^ d mod n): 139afb6b2d22
+decrypted ciphertext: ûk-"
+
+```
+Then I divided this decrypted hex by 32 on this [website](https://www.calculator.net/hex-calculator.html?number1=139afb6b2d22&c2op=%2F&number2=32&calctype=op&x=Calculate)
+
+<img width="772" alt="image" src="https://github.com/user-attachments/assets/7a455c56-b111-462c-9bbe-3ac9debb084e" />
+
+On converting it to ascii form I got the password: da099. I decrypted secret.enc using the following command.
+```
+mahikakapil@192 downloads % openssl enc -aes-256-cbc -d -in secret.enc -out decrypt4.txt
+enter AES-256-CBC decryption password:
+*** WARNING : deprecated key derivation used.
+Using -iter or -pbkdf2 would be better.
+```
+
+<img width="599" alt="image" src="https://github.com/user-attachments/assets/ff1e0d42-49c0-4b45-8083-9c7b38e3633c" />
+
+### -Errors and mistakes
+1. I wasted a lot of time in trying to figure out why my password wasn't working. It turned out I was using the hex value instead of the ascii one.
+
+### FLAG: picoCTF{su((3ss_(r@ck1ng_r3@_da099d93}
