@@ -1,4 +1,4 @@
 # cryptonite_tp2_Mahika
 
 Picoctf progress tracker
-<img width="1115" alt="image" src="https://github.com/user-attachments/assets/d25d0f1b-3682-4be7-9797-81f1707bfcbb" />
+<img width="1170" alt="image" src="https://github.com/user-attachments/assets/5b4af187-89fe-41d2-91d0-faa666af5722" />
